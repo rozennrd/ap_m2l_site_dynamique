@@ -1,4 +1,7 @@
 <?php
+
+/***** CONNEXION *****/
+
 if(isset($_GET['m2lMP'])){
 	$_SESSION['m2lMP']= $_GET['m2lMP'];
 }
@@ -28,7 +31,3 @@ $menuPrincipalM2L = $m2lMP->creerMenu($_SESSION['m2lMP'],'m2lMP');
 
 include_once dispatcher::dispatch($_SESSION['m2lMP']);
 
-
-
-
- 

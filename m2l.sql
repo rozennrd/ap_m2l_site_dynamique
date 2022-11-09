@@ -1,8 +1,8 @@
 --
--- Structure de la table `commune`
+-- Structure de la table `commune` 
 --
 
-CREATE TABLE `commune` (
+CREATE TABLE IF NOT EXISTS `commune`  (
   `idCommune` int(11) NOT NULL,
   `codePostal` int(5) NOT NULL DEFAULT '0',
   `nomCommune` varchar(40) NOT NULL,
@@ -2362,7 +2362,7 @@ INSERT INTO `commune` (`idCommune`, `codePostal`, `nomCommune`, `codeDepartement
 -- Structure de la table `departement`
 --
 
-CREATE TABLE `departement` (
+CREATE TABLE IF NOT EXISTS `departement` (
   `codeDepartement` int(2) NOT NULL,
   `nomDepartement` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
