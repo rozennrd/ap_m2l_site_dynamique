@@ -2,7 +2,7 @@
 
 Page du projet d'AP "M2L site dynamique". 
 Les consignes sont trouvables dans le fichier pdf. 
-Le trello pour l'organisation est trouvable à cette adresse : https://trello.com/b/M3Mu6Iba/gestion-des-t%C3%A2ches
+Le trello pour l'organisation est trouvable à cette adresse : https://trello.com/b/M3Mu6Iba/gestion-des-t%C3%A2ches // Lien d'invitation pour participer au trello : https://trello.com/invite/ap_m2l_site_dynamique/ATTId8e0b872b3e31da7009c93a35cc222afB77CD5DA 
 
 ## Commandes utiles pour contribuer au projet : 
 ### Initialisation du répertoire : 
