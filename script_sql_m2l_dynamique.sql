@@ -1,3 +1,157 @@
+DROP DATABASE IF EXISTS M2LDYNAMIQUE;
+
+CREATE DATABASE IF NOT EXISTS M2LDYNAMIQUE;
+USE M2LDYNAMIQUE;
+# -----------------------------------------------------------------------------
+#       TABLE : LIGUE
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS LIGUE
+ (
+   IDLIGUE CHAR(32) NOT NULL  ,
+   NOMLIGUE CHAR(32) NULL  ,
+   SITE CHAR(32) NULL  ,
+   DESCRIPTIF CHAR(32) NULL  
+   , PRIMARY KEY (IDLIGUE) 
+ ) 
+ENGINE=InnoDB;
+
+# -----------------------------------------------------------------------------
+#       TABLE : FONCTION
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS FONCTION
+ (
+   IDFONC CHAR(32) NOT NULL  ,
+   LIBELLE CHAR(32) NULL  
+   , PRIMARY KEY (IDFONC) 
+ ) 
+ENGINE=InnoDB;
+
+# -----------------------------------------------------------------------------
+#       TABLE : UTILISATEUR
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS UTILISATEUR
+ (
+   IDUSER CHAR(32) NOT NULL  ,
+   IDLIGUE CHAR(32) NULL  ,
+   IDFONC CHAR(32) NOT NULL  ,
+   IDCLUB CHAR(32) NULL  ,
+   NOM CHAR(32) NULL  ,
+   PRENOM CHAR(32) NULL  ,
+   LOGIN CHAR(32) NULL  ,
+   MDP CHAR(32) NULL  ,
+   STATUT CHAR(32) NULL  ,
+   TYPEUSER CHAR(32) NULL  
+   , PRIMARY KEY (IDUSER) 
+ ) 
+ENGINE=InnoDB;
+
+# -----------------------------------------------------------------------------
+#       INDEX DE LA TABLE UTILISATEUR
+# -----------------------------------------------------------------------------
+
+
+CREATE  INDEX I_FK_UTILISATEUR_LIGUE
+     ON UTILISATEUR (IDLIGUE ASC);
+
+CREATE  INDEX I_FK_UTILISATEUR_FONCTION
+     ON UTILISATEUR (IDFONC ASC);
+
+CREATE  INDEX I_FK_UTILISATEUR_CLUB
+     ON UTILISATEUR (IDCLUB ASC);
+
+
+# -----------------------------------------------------------------------------
+#       TABLE : BULLETIN
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS BULLETIN
+ (
+   IDBULLETIN CHAR(32) NOT NULL  ,
+   IDCONTRAT CHAR(32) NOT NULL  ,
+   MOIS CHAR(32) NULL  ,
+   ANNEE CHAR(32) NULL  ,
+   BULLETINPDF CHAR(32) NULL  
+   , PRIMARY KEY (IDBULLETIN) 
+ ) 
+ENGINE=InnoDB;
+
+# -----------------------------------------------------------------------------
+#       INDEX DE LA TABLE BULLETIN
+# -----------------------------------------------------------------------------
+
+
+CREATE  INDEX I_FK_BULLETIN_CONTRAT
+     ON BULLETIN (IDCONTRAT ASC);
+
+# -----------------------------------------------------------------------------
+#       TABLE : FORMATION
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS FORMATION
+ (
+   IDFORMA CHAR(32) NOT NULL  ,
+   INTITULE CHAR(32) NULL  ,
+   DESCRIPTIF CHAR(32) NULL  ,
+   DUREE CHAR(32) NULL  ,
+   DATEOUVERTUREINSCRIPTIONS CHAR(32) NULL  ,
+   DATECLOTUREINSCRIPTION CHAR(32) NULL  ,
+   EFFECTIFMAX CHAR(32) NULL  
+   , PRIMARY KEY (IDFORMA) 
+ ) 
+ENGINE=InnoDB;
+
+# -----------------------------------------------------------------------------
+#       TABLE : CONTRAT
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS CONTRAT
+ (
+   IDCONTRAT CHAR(32) NOT NULL  ,
+   IDUSER CHAR(32) NOT NULL  ,
+   DATEDEBUT CHAR(32) NULL  ,
+   DATEFIN CHAR(32) NULL  ,
+   TYPECONTRAT CHAR(32) NULL  ,
+   NBHEURES CHAR(32) NULL  
+   , PRIMARY KEY (IDCONTRAT), 
+   FOREIGN KEY IDUSER REFERENCES UTILISATEUR(IDUSER)
+ ) 
+ENGINE=InnoDB;
+
+# -----------------------------------------------------------------------------
+#       INDEX DE LA TABLE CONTRAT
+# -----------------------------------------------------------------------------
+
+
+--CREATE  INDEX I_FK_CONTRAT_UTILISATEUR
+  --   ON CONTRAT (IDUSER ASC);
+
+
+
+# -----------------------------------------------------------------------------
+#       TABLE : DEMANDEINSCRIPTION
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS DEMANDEINSCRIPTION
+ (
+   IDUSER CHAR(32) NOT NULL,
+   IDFORMA CHAR(32) NOT NULL,
+   STATUTDEMANDE CHAR(32) NULL,  
+   PRIMARY KEY (IDUSER, IDFORMA),
+   FOREIGN KEY IDUSER REFERENCES UTILISATEUR(IDUSER),
+   FOREIGN KEY IDFORMA REFERENCES FORMATION(IDFORMA) 
+ ) 
+ENGINE=InnoDB;
+
+
+
+
+
+# -----------------------------------------------------------------------------
+#       GEOGRAPHIE
+# -----------------------------------------------------------------------------
 --
 -- Structure de la table `commune` 
 --
@@ -9,6 +163,155 @@ CREATE TABLE IF NOT EXISTS `commune`  (
   `codeDepartement` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Structure de la table `departement`
+--
+
+CREATE TABLE IF NOT EXISTS `departement` (
+  `codeDepartement` int(2) NOT NULL,
+  `nomDepartement` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+-- --------------------------------------------------------
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `commune`
+--
+ALTER TABLE `commune`
+  ADD PRIMARY KEY (`idCommune`),
+  ADD KEY `codeDepartement` (`codeDepartement`);
+
+--
+-- Index pour la table `departement`
+--
+ALTER TABLE `departement`
+  ADD PRIMARY KEY (`codeDepartement`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `commune`
+--
+ALTER TABLE `commune`
+  MODIFY `idCommune` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2341;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `commune`
+--
+ALTER TABLE `commune`
+  ADD CONSTRAINT `communeDepartement` FOREIGN KEY (`codeDepartement`) REFERENCES `departement` (`codeDepartement`);
+COMMIT;
+
+
+
+# -----------------------------------------------------------------------------
+#       TABLE : CLUB
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS CLUB
+ (
+   IDCLUB CHAR(32) NOT NULL  ,
+   IDLIGUE CHAR(32) NOT NULL  ,
+   IDCOMMUNE CHAR(32) NOT NULL  ,
+   NOMCLUB CHAR(32) NULL  ,
+   ADRESSECLUB CHAR(32) NULL  
+   , PRIMARY KEY (IDCLUB) 
+ ) 
+ENGINE=InnoDB;
+
+# -----------------------------------------------------------------------------
+#       INDEX DE LA TABLE CLUB
+# -----------------------------------------------------------------------------
+
+
+CREATE  INDEX I_FK_CLUB_LIGUE
+     ON CLUB (IDLIGUE ASC);
+
+CREATE  INDEX I_FK_CLUB_COMMUNE
+     ON CLUB (IDCOMMUNE ASC);
+
+
+
+# -----------------------------------------------------------------------------
+#       CREATION DES REFERENCES DE TABLE
+# -----------------------------------------------------------------------------
+
+
+ALTER TABLE UTILISATEUR 
+  ADD FOREIGN KEY FK_UTILISATEUR_LIGUE (IDLIGUE)
+      REFERENCES LIGUE (IDLIGUE) ;
+
+
+ALTER TABLE UTILISATEUR 
+  ADD FOREIGN KEY FK_UTILISATEUR_FONCTION (IDFONC)
+      REFERENCES FONCTION (IDFONC) ;
+
+
+ALTER TABLE UTILISATEUR 
+  ADD FOREIGN KEY FK_UTILISATEUR_CLUB (IDCLUB)
+      REFERENCES CLUB (IDCLUB) ;
+
+
+ALTER TABLE BULLETIN 
+  ADD FOREIGN KEY FK_BULLETIN_CONTRAT (IDCONTRAT)
+      REFERENCES CONTRAT (IDCONTRAT) ;
+
+
+ALTER TABLE CONTRAT 
+  ADD FOREIGN KEY FK_CONTRAT_UTILISATEUR (IDUSER)
+      REFERENCES UTILISATEUR (IDUSER) ;
+
+
+ALTER TABLE CLUB 
+  ADD FOREIGN KEY FK_CLUB_LIGUE (IDLIGUE)
+      REFERENCES LIGUE (IDLIGUE) ;
+
+
+ALTER TABLE CLUB 
+  ADD FOREIGN KEY FK_CLUB_COMMUNE (IDCOMMUNE)
+      REFERENCES commune (idCommune) ;
+
+
+ALTER TABLE commune
+  ADD FOREIGN KEY FK_COMMUNE_DEPARTEMENT (codeDepartement)
+      REFERENCES DEPARTEMENT (codeDepartement) ;
+
+
+ALTER TABLE DEMANDEINSCRIPTION 
+  ADD FOREIGN KEY FK_DEMANDEINSCRIPTION_UTILISATEUR (IDUSER)
+      REFERENCES UTILISATEUR (IDUSER) ;
+
+
+ALTER TABLE DEMANDEINSCRIPTION 
+  ADD FOREIGN KEY FK_DEMANDEINSCRIPTION_FORMATION (IDFORMA)
+      REFERENCES FORMATION (IDFORMA) ;
+
+
+
+
+-- INSERTION DES DONNEES
+
+-- --------------------------------------------------------
+--
+-- Déchargement des données de la table `departement` (d'abord département puis commune, logique, sinon pb de fk)
+--
+
+INSERT INTO `departement` (`codeDepartement`, `nomDepartement`) VALUES
+(54, 'Meurthe et Moselle'),
+(55, 'Meuse'),
+(57, 'Moselle'),
+(88, 'Vosges');
 --
 -- Déchargement des données de la table `commune`
 --
@@ -2356,67 +2659,5 @@ INSERT INTO `commune` (`idCommune`, `codePostal`, `nomCommune`, `codeDepartement
 (2339, 88800, 'Valleroy-le-Sec', 88),
 (2340, 88800, 'Vittel', 88);
 
--- --------------------------------------------------------
 
---
--- Structure de la table `departement`
---
 
-CREATE TABLE IF NOT EXISTS `departement` (
-  `codeDepartement` int(2) NOT NULL,
-  `nomDepartement` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `departement`
---
-
-INSERT INTO `departement` (`codeDepartement`, `nomDepartement`) VALUES
-(54, 'Meurthe et Moselle'),
-(55, 'Meuse'),
-(57, 'Moselle'),
-(88, 'Vosges');
-
--- --------------------------------------------------------
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `commune`
---
-ALTER TABLE `commune`
-  ADD PRIMARY KEY (`idCommune`),
-  ADD KEY `codeDepartement` (`codeDepartement`);
-
---
--- Index pour la table `departement`
---
-ALTER TABLE `departement`
-  ADD PRIMARY KEY (`codeDepartement`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `commune`
---
-ALTER TABLE `commune`
-  MODIFY `idCommune` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2341;
-
---
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `commune`
---
-ALTER TABLE `commune`
-  ADD CONSTRAINT `communeDepartement` FOREIGN KEY (`codeDepartement`) REFERENCES `departement` (`codeDepartement`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
