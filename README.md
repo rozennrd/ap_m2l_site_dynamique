@@ -13,7 +13,7 @@ Entrer la commande `git clone https://github.com/rozennrd/ap_m2l_site_dynamique.
 Le répertoire est alors créé, et vous vous retrouvez sur la branche main. 
 Pour créer votre branche sur laquelle travailler sans interférer avec le travail des autres, utiliser la commande `git branch -b <nomdemabranche>`. 
 
-Importez le fichier sql dans votre base de données mysql (phpmyadmin)
+Importez le fichier sql `script_sql_m2l_dynamique.txt` dans votre base de données mysql (phpmyadmin)
 
 ### Comment procéder ? 
 A chaque fin de session (lorsque vous avez fini de travailler avec votre fichier), entrez les commandes suivantes : 
