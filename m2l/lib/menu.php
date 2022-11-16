@@ -65,4 +65,25 @@ class Menu{
 	}
 
 	
+	public function creerMenuLigues($composantActif){
+		$menu = "<ul class = '" .  $this->style . "'>";
+		foreach($this->composants as $composant){
+			if($composant[0] == $composantActif){
+				$menu .= "<li class='actif'>";
+				$menu .=  $composant[1] ;
+			}
+			else{
+				$menu .= "<li>";
+				$menu .= "<a href='index.php?action=afficher" ;
+				$menu .= "&ligue=" . $composant[0] . "' >";
+				$menu .= $composant[1] ;
+				$menu .= "</a>";
+			}
+			$menu .= "</li>";
+		}
+		$menu .= "</ul>";
+		return $menu ;
+	}
+
+
 }

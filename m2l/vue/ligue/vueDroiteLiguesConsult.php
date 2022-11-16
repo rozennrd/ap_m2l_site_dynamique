@@ -1,0 +1,4 @@
+<?php 
+
+
+$formuLigue->afficherFormulaire();
