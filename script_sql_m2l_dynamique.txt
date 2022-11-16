@@ -2596,7 +2596,7 @@ CREATE TABLE IF NOT EXISTS DEMANDEINSCRIPTION
    statutDemande CHAR(32) NULL  
    , PRIMARY KEY (idUser,IDFORMA) 
  ) 
- comment = "";
+ ENGINE="INNODB";
 
 # -----------------------------------------------------------------------------
 #       INDEX DE LA TABLE DEMANDEINSCRIPTION
@@ -2610,7 +2610,7 @@ CREATE  INDEX I_FK_DEMANDEINSCRIPTION_FORMATION
      ON DEMANDEINSCRIPTION (idForma ASC);
 
 # -----------------------------------------------------------------------------
-#       TABLE : CORRESPOND
+#       TABLE : ENGINE="INNODB"
 # -----------------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS CORRESPOND
@@ -2619,7 +2619,7 @@ CREATE TABLE IF NOT EXISTS CORRESPOND
    idCommune CHAR(32) NOT NULL  
    , PRIMARY KEY (codePos,idCommune) 
  ) 
- comment = "";
+ ENGINE="INNODB";
 
 # -----------------------------------------------------------------------------
 #       INDEX DE LA TABLE CORRESPOND
