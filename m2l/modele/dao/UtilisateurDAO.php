@@ -7,7 +7,12 @@ class UtilisateurDAO {
         $mdp = $unUtilisateur.getMdp(); 
         $requetePrepa->bindParam(":login", $login); 
         $requetePrepa->bindParam(":mdp", $mdp);
+        $requetePrepa->execute();
+        $idUser = $requetePrepa->fetch();
+        return $idUser[0];
     }
+
+    
 
 }
 
