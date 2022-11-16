@@ -127,31 +127,6 @@ ENGINE="INNODB";
 CREATE  INDEX I_FK_CONTRAT_UTILISATEUR
      ON CONTRAT (idUser ASC);
 
-# -----------------------------------------------------------------------------
-#       TABLE : CLUB
-# -----------------------------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS CLUB
- (
-   idClub CHAR(32) NOT NULL  ,
-   idLigue CHAR(32) NOT NULL  ,
-   idCommune CHAR(32) NOT NULL  ,
-   nomClub CHAR(32) NULL  ,
-   adresseClub CHAR(32) NULL  
-   , PRIMARY KEY (idClub) 
- ) 
-ENGINE="INNODB";
-
-# -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE CLUB
-# -----------------------------------------------------------------------------
-
-
-CREATE  INDEX I_FK_CLUB_LIGUE
-     ON CLUB (idLigue ASC);
-
-CREATE  INDEX I_FK_CLUB_COMMUNE
-     ON CLUB (idCommune ASC);
 
 --
 -- Structure de la table `commune`
@@ -2598,6 +2573,32 @@ CREATE  INDEX I_FK_DEMANDEINSCRIPTION_UTILISATEUR
 CREATE  INDEX I_FK_DEMANDEINSCRIPTION_FORMATION
      ON DEMANDEINSCRIPTION (idForma ASC);
 
+# -----------------------------------------------------------------------------
+#       TABLE : CLUB
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS CLUB
+ (
+   idClub CHAR(32) NOT NULL  ,
+   idLigue CHAR(32) NOT NULL  ,
+   idCommune int(11) NOT NULL  ,
+   nomClub CHAR(32) NULL  ,
+   adresseClub CHAR(32) NULL  
+   , PRIMARY KEY (idClub)
+ ) 
+ENGINE="INNODB";
+
+# -----------------------------------------------------------------------------
+#       INDEX DE LA TABLE CLUB
+# -----------------------------------------------------------------------------
+
+
+CREATE  INDEX I_FK_CLUB_LIGUE
+     ON CLUB (idLigue ASC);
+
+CREATE  INDEX I_FK_CLUB_COMMUNE
+     ON CLUB (idCommune ASC);
+
 
 # -----------------------------------------------------------------------------
 #       CREATION DES REFERENCES DE TABLE
@@ -2608,6 +2609,9 @@ ALTER TABLE UTILISATEUR
   ADD FOREIGN KEY FK_UTILISATEUR_LIGUE (idLigue)
       REFERENCES LIGUE (idLigue) ;
 
+ALTER TABLE CLUB 
+  ADD FOREIGN KEY FK_CLUB_commune (idCommune)
+      REFERENCES commune (idCommune) ;
 
 ALTER TABLE UTILISATEUR 
   ADD FOREIGN KEY FK_UTILISATEUR_FONCTION (idFonc)
@@ -2637,12 +2641,6 @@ ALTER TABLE CLUB
 ALTER TABLE DEMANDEINSCRIPTION 
   ADD FOREIGN KEY FK_DEMANDEINSCRIPTION_UTILISATEUR (idUser)
       REFERENCES UTILISATEUR (idUser) ;
-
-
-
-ALTER TABLE CLUB
-  ADD FOREIGN KEY FK_CLUB_COMMUNE (idCommune)
-      REFERENCES COMMUNE (idCommune) ;
 
 ALTER TABLE DEMANDEINSCRIPTION 
   ADD FOREIGN KEY FK_DEMANDEINSCRIPTION_FORMATION (idForma)
