@@ -22,7 +22,7 @@ A chaque fin de session (lorsque vous avez fini de travailler avec votre fichier
 
 * `git add -A` (ajoute toutes les modifications en attente) 
 * `git commit -m "<commentaire>"`
-* `git push` **ou, pour le premier push : ** `git push --set-upstream origin main` (ou quelque chose comme ça)
+* `git push` **ou, pour le premier push :** `git push --set-upstream origin main` (ou quelque chose comme ça)
 
 
 Si vous n'êtes pas sûrs d'avoir commité ou push, utilisez la commande `git status` qui vous permettra d'avoir une vue d'ensemble. 
