@@ -1,4 +1,6 @@
 <?php
+include_once "modele/dao/param.php";
+
 class DBConnex extends PDO{
     
     private static $instance;
