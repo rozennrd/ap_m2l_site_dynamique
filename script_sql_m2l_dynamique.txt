@@ -128,17 +128,6 @@ CREATE  INDEX I_FK_CONTRAT_UTILISATEUR
      ON CONTRAT (idUser ASC);
 
 # -----------------------------------------------------------------------------
-#       TABLE : CODEPOS
-# -----------------------------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS CODEPOS
- (
-   codePos CHAR(32) NOT NULL  
-   , PRIMARY KEY (codePos) 
- ) 
-ENGINE="INNODB";
-
-# -----------------------------------------------------------------------------
 #       TABLE : CLUB
 # -----------------------------------------------------------------------------
 
@@ -2609,29 +2598,6 @@ CREATE  INDEX I_FK_DEMANDEINSCRIPTION_UTILISATEUR
 CREATE  INDEX I_FK_DEMANDEINSCRIPTION_FORMATION
      ON DEMANDEINSCRIPTION (idForma ASC);
 
-# -----------------------------------------------------------------------------
-#       TABLE : ENGINE="INNODB"
-# -----------------------------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS CORRESPOND
- (
-   codePos CHAR(32) NOT NULL  ,
-   idCommune CHAR(32) NOT NULL  
-   , PRIMARY KEY (codePos,idCommune) 
- ) 
- ENGINE="INNODB";
-
-# -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE CORRESPOND
-# -----------------------------------------------------------------------------
-
-
-CREATE  INDEX I_FK_CORRESPOND_CODEPOS
-     ON CORRESPOND (codePos ASC);
-
-CREATE  INDEX I_FK_CORRESPOND_COMMUNE
-     ON CORRESPOND (IDcOMMUNE ASC);
-
 
 # -----------------------------------------------------------------------------
 #       CREATION DES REFERENCES DE TABLE
@@ -2673,12 +2639,15 @@ ALTER TABLE DEMANDEINSCRIPTION
       REFERENCES UTILISATEUR (idUser) ;
 
 
+
+ALTER TABLE CLUB
+  ADD FOREIGN KEY FK_CLUB_COMMUNE (idCommune)
+      REFERENCES COMMUNE (idCommune) ;
+
 ALTER TABLE DEMANDEINSCRIPTION 
   ADD FOREIGN KEY FK_DEMANDEINSCRIPTION_FORMATION (idForma)
       REFERENCES FORMATION (idForma) ;
 
 
-ALTER TABLE CORRESPOND 
-  ADD FOREIGN KEY FK_CORRESPOND_CODEPOS (codePos)
-      REFERENCES CODEPOS (codePos) ;
+
 
