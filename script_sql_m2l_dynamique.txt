@@ -1,7 +1,6 @@
-DROP DATABASE IF EXISTS M2LDYNAMIQUE
+DROP DATABASE IF EXISTS M2LDYNAMIQUE;
 
-CREATE DATABASE IF NOT EXISTS M2LDYNAMIQUE
-ENGINE="INNODB";
+CREATE DATABASE IF NOT EXISTS M2LDYNAMIQUE;
 USE M2LDYNAMIQUE;
 # -----------------------------------------------------------------------------
 #       TABLE : LIGUE
@@ -15,7 +14,7 @@ CREATE TABLE IF NOT EXISTS LIGUE
    descriptif CHAR(32) NULL  
    , PRIMARY KEY (idLigue) 
  ) 
- comment = "";
+ ENGINE="INNODB";
 
 # -----------------------------------------------------------------------------
 #       TABLE : FONCTION
@@ -27,7 +26,7 @@ CREATE TABLE IF NOT EXISTS FONCTION
    libelle CHAR(32) NULL  
    , PRIMARY KEY (idFonc) 
  ) 
- comment = "";
+ENGINE="INNODB";
 
 # -----------------------------------------------------------------------------
 #       TABLE : UTILISATEUR
@@ -47,7 +46,7 @@ CREATE TABLE IF NOT EXISTS UTILISATEUR
    typeUser CHAR(32) NULL  
    , PRIMARY KEY (idUser) 
  ) 
- comment = "";
+ENGINE="INNODB";
 
 # -----------------------------------------------------------------------------
 #       INDEX DE LA TABLE UTILISATEUR
@@ -63,17 +62,6 @@ CREATE  INDEX I_FK_UTILISATEUR_FONCTION
 CREATE  INDEX I_FK_UTILISATEUR_CLUB
      ON UTILISATEUR (idClub ASC);
 
-# -----------------------------------------------------------------------------
-#       TABLE : DEPARTEMENT
-# -----------------------------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS DEPARTEMENT
- (
-   codeDep CHAR(32) NOT NULL  ,
-   nomDep CHAR(32) NULL  
-   , PRIMARY KEY (codeDep) 
- ) 
- comment = "";
 
 # -----------------------------------------------------------------------------
 #       TABLE : BULLETIN
@@ -88,7 +76,7 @@ CREATE TABLE IF NOT EXISTS BULLETIN
    bulletinPdf CHAR(32) NULL  
    , PRIMARY KEY (idBulletin) 
  ) 
- comment = "";
+ ENGINE="INNODB";
 
 # -----------------------------------------------------------------------------
 #       INDEX DE LA TABLE BULLETIN
@@ -113,7 +101,7 @@ CREATE TABLE IF NOT EXISTS FORMATION
    effectifMax CHAR(32) NULL  
    , PRIMARY KEY (idForma) 
  ) 
- comment = "";
+ENGINE="INNODB";
 
 # -----------------------------------------------------------------------------
 #       TABLE : CONTRAT
@@ -129,7 +117,7 @@ CREATE TABLE IF NOT EXISTS CONTRAT
    nbHeures CHAR(32) NULL  
    , PRIMARY KEY (idContrat) 
  ) 
- comment = "";
+ENGINE="INNODB";
 
 # -----------------------------------------------------------------------------
 #       INDEX DE LA TABLE CONTRAT
@@ -148,7 +136,7 @@ CREATE TABLE IF NOT EXISTS CODEPOS
    codePos CHAR(32) NOT NULL  
    , PRIMARY KEY (codePos) 
  ) 
- comment = "";
+ENGINE="INNODB";
 
 # -----------------------------------------------------------------------------
 #       TABLE : CLUB
@@ -158,12 +146,12 @@ CREATE TABLE IF NOT EXISTS CLUB
  (
    idClub CHAR(32) NOT NULL  ,
    idLigue CHAR(32) NOT NULL  ,
-   idVille CHAR(32) NOT NULL  ,
+   idCommune CHAR(32) NOT NULL  ,
    nomClub CHAR(32) NULL  ,
    adresseClub CHAR(32) NULL  
    , PRIMARY KEY (idClub) 
  ) 
- comment = "";
+ENGINE="INNODB";
 
 # -----------------------------------------------------------------------------
 #       INDEX DE LA TABLE CLUB
@@ -173,8 +161,8 @@ CREATE TABLE IF NOT EXISTS CLUB
 CREATE  INDEX I_FK_CLUB_LIGUE
      ON CLUB (idLigue ASC);
 
-CREATE  INDEX I_FK_CLUB_VILLES
-     ON CLUB (idVille ASC);
+CREATE  INDEX I_FK_CLUB_COMMUNE
+     ON CLUB (idCommune ASC);
 
 --
 -- Structure de la table `commune`
@@ -2595,17 +2583,7 @@ ALTER TABLE `commune`
   ADD CONSTRAINT `communeDepartement` FOREIGN KEY (`codeDepartement`) REFERENCES `departement` (`codeDepartement`);
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
-# -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE VILLES
-# -----------------------------------------------------------------------------
-
-
-CREATE  INDEX I_FK_VILLES_DEPARTEMENT
-     ON VILLES (codeDep ASC);
 
 # -----------------------------------------------------------------------------
 #       TABLE : DEMANDEINSCRIPTION
@@ -2638,8 +2616,8 @@ CREATE  INDEX I_FK_DEMANDEINSCRIPTION_FORMATION
 CREATE TABLE IF NOT EXISTS CORRESPOND
  (
    codePos CHAR(32) NOT NULL  ,
-   idVille CHAR(32) NOT NULL  
-   , PRIMARY KEY (codePos,idVille) 
+   idCommune CHAR(32) NOT NULL  
+   , PRIMARY KEY (codePos,idCommune) 
  ) 
  comment = "";
 
@@ -2651,8 +2629,8 @@ CREATE TABLE IF NOT EXISTS CORRESPOND
 CREATE  INDEX I_FK_CORRESPOND_CODEPOS
      ON CORRESPOND (codePos ASC);
 
-CREATE  INDEX I_FK_CORRESPOND_VILLES
-     ON CORRESPOND (idVille ASC);
+CREATE  INDEX I_FK_CORRESPOND_COMMUNE
+     ON CORRESPOND (IDcOMMUNE ASC);
 
 
 # -----------------------------------------------------------------------------
@@ -2690,16 +2668,6 @@ ALTER TABLE CLUB
       REFERENCES LIGUE (idLigue) ;
 
 
-ALTER TABLE CLUB 
-  ADD FOREIGN KEY FK_CLUB_VILLES (idVille)
-      REFERENCES VILLES (idVille) ;
-
-
-ALTER TABLE VILLES 
-  ADD FOREIGN KEY FK_VILLES_DEPARTEMENT (codeDep)
-      REFERENCES DEPARTEMENT (codeDep) ;
-
-
 ALTER TABLE DEMANDEINSCRIPTION 
   ADD FOREIGN KEY FK_DEMANDEINSCRIPTION_UTILISATEUR (idUser)
       REFERENCES UTILISATEUR (idUser) ;
@@ -2713,9 +2681,4 @@ ALTER TABLE DEMANDEINSCRIPTION
 ALTER TABLE CORRESPOND 
   ADD FOREIGN KEY FK_CORRESPOND_CODEPOS (codePos)
       REFERENCES CODEPOS (codePos) ;
-
-
-ALTER TABLE CORRESPOND 
-  ADD FOREIGN KEY FK_CORRESPOND_VILLES (idVille)
-      REFERENCES VILLES (idVille) ;
 
