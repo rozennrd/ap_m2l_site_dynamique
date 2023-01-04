@@ -27,6 +27,7 @@ if(!isset($_SESSION['identification']) || $_SESSION['identification'] == null) {
 else
 {
 	$_SESSION['identification']=null;
+	$utilisateurActuel = null; 
 	$_SESSION['m2lMP']="accueil";
 	header('location: index.php');
 }

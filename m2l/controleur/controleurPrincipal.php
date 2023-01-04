@@ -7,34 +7,29 @@ require_once "modele/dao/UtilisateurDAO.php";
 /**
  * Pour gérer un utilisateur connecté, utiliser la variable $utilisateurActuel. 
  * Si cette variable existe et n'est pas nulle, l'utilisateur est connecté ! 
- * Plus qu'à utiliser sa commande getStatut() pour vérifier que l'utilisateur possède le bon statut. 
+ * Plus qu'à utiliser sa commande getStatut() pour vérifier que l'utilisateur possède le bon
  */
-
-
-echo "<script> alert(". $_SESSION['identification'].";)</script>";
 $messageConnexion = '';
+//echo "<script>alert(\""+$_SESSION['identification']+"\")</script>";
 
-echo isset($_POST['login']);
-echo implode(", ", $_POST);
-echo "bonjour";
 if(isset($_POST['login']))
 {
-	
 	// Création d'un utilisateur + irrigation avec le login et le mdp récupérés
 	$unUtilisateur = new Utilisateur();
 	$unUtilisateur->setLogin($_POST['login']); 
 	$unUtilisateur->setMdp($_POST['mdp']);
 	
 	$_SESSION['identification'] = UtilisateurDAO::verification($unUtilisateur); // Vérification 
-	$utilisateurActuel = UtilisateurDAO::getUtilisateur($_SESSION['identification']);
 	if (isset($_SESSION['identification']) && $_SESSION['identification'])
 	{
-		$_GET['m2lMP'] = "accueil";
+		$utilisateurActuel = UtilisateurDAO::getUtilisateur($_SESSION['identification']);
 		$messageConnexion = "Vous êtes connecté";
+	
 		// Insérer ici vos modifications / les choses qui dépendent de si votre utilisateur est identifié
 	}
 	else
 	{
+		
 		$messageConnexion = "Login ou mot de passe incorrect";
 	}
 }
@@ -46,7 +41,7 @@ if(isset($_POST['connexion'])) {
 
 
 
-/********************/
+/********* GESTION DU MENU ET DES CHANGEMENTS DE PAGE ***********/
 if(isset($_GET['m2lMP'])){
 	$_SESSION['m2lMP']= $_GET['m2lMP'];
 }
@@ -63,7 +58,7 @@ else
 // Comment gérer l'identification ?
 if (isset($_SESSION['identification']) && $_SESSION["identification"]) // S'il existe une valeur d'identification dans la session && qu'elle n'est pas nulle 
 {
-	// Insérer les choses qui nécessitent d'être identifié
+	// Insérer ici les choses qui nécessitent d'être identifié
 
 	// Gestion de l'item de connexion du menu
 	$texteItemConnexion = "Se déconnecter"; 
@@ -88,5 +83,4 @@ $menuPrincipalM2L = $m2lMP->creerMenu($_SESSION['m2lMP'],'m2lMP');
 $debug = $_SESSION['identification'];
 
 include_once dispatcher::dispatch($_SESSION['m2lMP']);
-
 
