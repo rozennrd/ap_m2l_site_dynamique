@@ -24,6 +24,7 @@ if(isset($_POST['login']))
 	{
 		$utilisateurActuel = UtilisateurDAO::getUtilisateur($_SESSION['identification']);
 		$messageConnexion = "Vous êtes connecté";
+		$_GET['m2lMP'] = "accueil";
 	
 		// Insérer ici vos modifications / les choses qui dépendent de si votre utilisateur est identifié
 	}
@@ -33,12 +34,6 @@ if(isset($_POST['login']))
 		$messageConnexion = "Login ou mot de passe incorrect";
 	}
 }
-
-/***** DECONNEXION *****/
-if(isset($_POST['connexion'])) {
-	
-}
-
 
 
 /********* GESTION DU MENU ET DES CHANGEMENTS DE PAGE ***********/
@@ -59,7 +54,6 @@ else
 if (isset($_SESSION['identification']) && $_SESSION["identification"]) // S'il existe une valeur d'identification dans la session && qu'elle n'est pas nulle 
 {
 	// Insérer ici les choses qui nécessitent d'être identifié
-
 	// Gestion de l'item de connexion du menu
 	$texteItemConnexion = "Se déconnecter"; 
 
@@ -70,6 +64,14 @@ else
 	$texteItemConnexion = "Se connecter"; 
 }
 
+/** GESTION DES FORMATIONS
+ * c’est le responsable formation qui gère les formations : il devra pouvoir, ajouter,
+ * modifier, consulter et supprimer les formations.
+ */
+if (isset($utilisateurActuel) && $utilisateurActuel->getIdFonc() == 'rf') {
+
+}
+
 
 $m2lMP = new Menu("m2lMP");
 
@@ -77,6 +79,10 @@ $m2lMP->ajouterComposant($m2lMP->creerItemLien("accueil", "Accueil"));
 $m2lMP->ajouterComposant($m2lMP->creerItemLien("services", "Services"));
 $m2lMP->ajouterComposant($m2lMP->creerItemLien("locaux", "Locaux"));
 $m2lMP->ajouterComposant($m2lMP->creerItemLien("ligues", "Ligues"));
+if (isset($utilisateurActuel)) {
+	$m2lMP->ajouterComposant($m2lMP->creerItemLien("formations", "Formations"));
+}
+
 $m2lMP->ajouterComposant($m2lMP->creerItemLien("connexion", $texteItemConnexion));
 
 $menuPrincipalM2L = $m2lMP->creerMenu($_SESSION['m2lMP'],'m2lMP');
