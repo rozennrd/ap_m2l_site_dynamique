@@ -13,7 +13,7 @@ class Menu{
 	 * Constructeur de la classe Menu
 	 * @param $unStyle (style pour css)
 	 */
-	public function __construct($unStyle ){
+	public function __construct($unStyle){
 		$this->style = $unStyle;
 	}
 
@@ -25,12 +25,11 @@ class Menu{
 		$this->composants[] = $unComposant;
 	}
 
-
 	/**
 	 * Crée un nouvelle item pour le menu
 	 * @param $unLien  (valeur transmise)
 	 * @param $uneValeur (valeur affichée)
-	 * @return un item pour le menu
+	 * @retourne un item pour le menu
 	 */
 	public function creerItemLien($unLien,$uneValeur){
 		$composant = array();
@@ -51,7 +50,7 @@ class Menu{
 				$menu .= "<li class='actif'>";
 				$menu .=  "<span>" . $composant[1] ."</span>";
 			}
-			else{
+			else {
 				$menu .= "<li>";
 				$menu .= "<a href='index.php?" . $nomMenu ;
 				$menu .= "=" . $composant[0] . "' >";

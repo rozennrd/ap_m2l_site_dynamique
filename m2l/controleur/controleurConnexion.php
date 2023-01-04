@@ -1,7 +1,7 @@
 <?php
 
 
-if(!isset($_SESSION['identification']) || !$_SESSION['identification']){
+if(!isset($_SESSION['identification']) || $_SESSION['identification'] == null) {
 
 	$formulaireConnexion = new Formulaire('post', 'index.php', 'fConnexion', 'fConnexion');
 	
@@ -16,7 +16,7 @@ if(!isset($_SESSION['identification']) || !$_SESSION['identification']){
 	$formulaireConnexion->ajouterComposantLigne($formulaireConnexion-> creerInputSubmit('submitConnex', 'submitConnex', 'Valider'));
 	$formulaireConnexion->ajouterComposantTab();
 	
-	$formulaireConnexion->ajouterComposantLigne($formulaireConnexion->creerMessage($messageErreurConnexion));
+	$formulaireConnexion->ajouterComposantLigne($formulaireConnexion->creerMessage($messageConnexion));
 	$formulaireConnexion->ajouterComposantTab();
 	
 	$formulaireConnexion->creerFormulaire();
@@ -24,8 +24,9 @@ if(!isset($_SESSION['identification']) || !$_SESSION['identification']){
 	require_once 'vue/vueConnexion.php' ;
 
 }
-else{
-	$_SESSION['identification']=[];
+else
+{
+	$_SESSION['identification']=null;
 	$_SESSION['m2lMP']="accueil";
 	header('location: index.php');
 }

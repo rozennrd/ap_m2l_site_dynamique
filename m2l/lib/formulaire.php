@@ -83,9 +83,9 @@ class Formulaire{
 	public function creerSelect($unNom, $unId, $unLabel, $options){
 		$composant = "<select  name = '" . $unNom . "' id = '" . $unId . "' >";
 		foreach ($options as $option){
-			$composant .= "<option value = " ;
+			$composant .= "<option value = " . $option . '>';
 		}
-		$composant .= "</select></td></tr>";
+		$composant .= "</select>";
 		return $composant;
 	}	
 	

@@ -5,26 +5,43 @@ require_once "modele/dao/UtilisateurDAO.php";
 
 /***** CREATION / GESTION DE LA SESSION *****/
 
-
-$messageErreurConnexion = '';
-//echo "<script>alert(\""+$_SESSION['identification']+"\")</script>";
-
-if(isset($_POST['login'])) 
+/*if(isset($_GET['identification'])){
+	$_SESSION['identification']= $_GET['identification'];
+}
+else
 {
+	if(!isset($_SESSION['identification'])){
+		$_SESSION['identification']=False;
+	}
+}*/
+echo "<script> alert(". $_SESSION['identification'].";)</script>";
+$messageConnexion = '';
+//echo "<script>alert(\""+$_SESSION['identification']+"\")</script>";
+echo isset($_POST['login']);
+echo implode(", ", $_POST);
+echo "bonjour";
+if(isset($_POST['login']))
+{
+	echo "on est dans le logiiiin";
 	// Création d'un utilisateur + irrigation avec le login et le mdp récupérés
 	$unUtilisateur = new Utilisateur();
 	$unUtilisateur->setLogin($_POST['login']); 
 	$unUtilisateur->setMdp($_POST['mdp']);
 	
 	$_SESSION['identification'] = UtilisateurDAO::verification($unUtilisateur); // Vérification 
-	if (isset($_SESSION['identification']) && $_SESSION['identification']) 
+	echo "<script> alert(".$_SESSION['identification'].";)</script>";
+	if (isset($_SESSION['identification']) && $_SESSION['identification'])
 	{
-		$messageErreurConnexion = "Vous êtes connecté";
+		var_dump("test0".$_SESSION['identification']);
+		$_GET['m2lMP'] = "accueil";
+		$messageConnexion = "Vous êtes connecté";
+		
 		// Insérer ici vos modifications / les choses qui dépendent de si votre utilisateur est identifié
 	}
-	else 
+	else
 	{
-		$messageErreurConnexion = "Login ou mot de passe incorrect"; 
+		var_dump("test1".$_SESSION['identification']);
+		$messageConnexion = "Login ou mot de passe incorrect";
 	}
 }
 
@@ -32,6 +49,7 @@ if(isset($_POST['login']))
 if(isset($_POST['connexion'])) {
 	
 }
+
 
 
 /********************/
@@ -73,7 +91,7 @@ $m2lMP->ajouterComposant($m2lMP->creerItemLien("ligues", "Ligues"));
 $m2lMP->ajouterComposant($m2lMP->creerItemLien("connexion", $texteItemConnexion));
 
 $menuPrincipalM2L = $m2lMP->creerMenu($_SESSION['m2lMP'],'m2lMP');
-
+$debug = $_SESSION['identification'];
 
 include_once dispatcher::dispatch($_SESSION['m2lMP']);
 
