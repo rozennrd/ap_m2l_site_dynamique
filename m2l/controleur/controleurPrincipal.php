@@ -80,6 +80,23 @@ else
 	// Gestion de l'item de connexion du menu
 	$texteItemConnexion = "Se connecter"; 
 }
+// TODO : Tester la connexion 
+
+
+// Comment gérer l'identification ?
+if (isset($_SESSION['identification']) && $_SESSION["identification"]) // S'il existe une valeur d'identification dans la session && qu'elle n'est pas nulle 
+{
+	// Insérer les choses qui nécessitent d'être identifié
+
+	// Gestion de l'item de connexion du menu
+	$texteItemConnexion = "Se déconnecter"; 
+
+}
+else 
+{
+	// Gestion de l'item de connexion du menu
+	$texteItemConnexion = "Se connecter"; 
+}
 
 
 $m2lMP = new Menu("m2lMP");
@@ -94,4 +111,5 @@ $menuPrincipalM2L = $m2lMP->creerMenu($_SESSION['m2lMP'],'m2lMP');
 $debug = $_SESSION['identification'];
 
 include_once dispatcher::dispatch($_SESSION['m2lMP']);
+
 
