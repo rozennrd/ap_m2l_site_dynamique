@@ -68,9 +68,7 @@ else
  * c’est le responsable formation qui gère les formations : il devra pouvoir, ajouter,
  * modifier, consulter et supprimer les formations.
  */
-if (isset($utilisateurActuel) && $utilisateurActuel->getIdFonc() == 'rf') {
 
-}
 
 
 $m2lMP = new Menu("m2lMP");
