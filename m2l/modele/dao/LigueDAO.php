@@ -1,5 +1,5 @@
 <?php
-/*je dois finir de faire le dao, le dto et controleur Ligues*/
+/*dans la dao, faudrait dans le controleur ligue que j'aille chercher toutes les ligues pour faire afficher*/
 class LigueDAO{
 public static function lesLigues(){
     $result = [];

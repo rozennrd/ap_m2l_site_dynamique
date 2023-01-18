@@ -34,8 +34,8 @@ class Menu{
 	 */
 	public function creerItemLien($unLien,$uneValeur){
 		$composant = array();
-		$composant[0] = $unLien ;
-		$composant[1] = $uneValeur ;
+		$composant[1] = $unLien ;
+		$composant[0] = $uneValeur ;
 		return $composant;
 	}
 

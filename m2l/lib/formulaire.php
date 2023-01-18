@@ -100,6 +100,12 @@ class Formulaire{
 		$composant .= "src = '" . $uneSource . "'/> ";
 		return $composant;
 	}
+
+	public function creerImage($unNom, $unId, $uneSource){
+		$composant = "<img  name = '" . $unNom . "' id = '" . $unId . "' ";
+		$composant .= "src = '" . $uneSource . "'/> ";
+		return $composant;
+	}
 	
 	
 	public function creerFormulaire(){

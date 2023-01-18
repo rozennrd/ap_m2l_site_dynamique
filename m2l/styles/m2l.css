@@ -14,7 +14,7 @@ html, body {
 .conteneur{
 	margin: 0px;
 	padding: 0px;
-	width: 100%
+	width: 100%;
 	font-size: 0px;
 }
 
@@ -42,8 +42,53 @@ main {
  	margin-top: 200px;
 }
 
+aside {
+	display: inline-block;
+	background-color: grey;
+	 width: 15%;
+	 height: 100%;
+	font-size: 3em;
+	overflow-y: scroll;
+}
+
+aside nav {
+	 text-align: left;   
+}
 
 
+/*************************************************/
+/*style pour le menu Ligue                      */
+/*************************************************/
+.menuLigue {
+  	list-style-type: none;
+  	padding-left: 30px;
+  	font-size: 22px;
+} 
+
+.menuLigue ul{
+  	list-style-type: none;
+  	border: 1px solid grey;
+}
+
+.menuLigue a{
+  	color: #ffffff;
+  	font-weight: bold;
+  	text-decoration: none;
+}
+
+.menuLigue a:hover{
+ 	text-shadow: 3px 3px 3px black;
+}
+
+.menuLigue .actif{
+  	color: #ffff00;
+  	font-weight: bold;
+  	text-shadow: 3px 3px 3px black;
+}	
+
+.menuLigue img{
+  	width: 30px;
+}
 
 /**********************************************************************/
 /*styles pour la zone gauche de la zone centrale de la page           */
@@ -109,7 +154,7 @@ footer p{
 nav.menuPrincipal{
 	text-align: right;
 	background-color: skyblue;
-	font-size: 0px;
+	font-size: 10px;
 }
 
 nav.menuPrincipal ul {
@@ -131,7 +176,7 @@ nav.menuPrincipal ul li {
 
 nav.menuPrincipal ul li a {
   text-decoration: none;
-  color: white; 
+  color: black; 
 }
 
 nav.menuPrincipal ul li a:hover {
@@ -159,7 +204,7 @@ nav.menuPrincipal ul li.actif {
 .texteAccueil h1{
 	padding-top: 20px;
 	padding-bottom: 20px;
-	text-algn: center;
+	text-align: center;
 	text-align: center;
 }
 
