@@ -77,10 +77,10 @@ $m2lMP->ajouterComposant($m2lMP->creerItemLien("accueil", "Accueil"));
 $m2lMP->ajouterComposant($m2lMP->creerItemLien("services", "Services"));
 $m2lMP->ajouterComposant($m2lMP->creerItemLien("locaux", "Locaux"));
 $m2lMP->ajouterComposant($m2lMP->creerItemLien("ligues", "Ligues"));
-$m2lMP->ajouterComposant($m2lMP->creerItemLien("connexion", $texteItemConnexion));
+$m2lMP->ajouterComposant($m2lMP->creerItemLien( $texteItemConnexion, "connexion"));
 
 $menuPrincipalM2L = $m2lMP->creerMenu($_SESSION['m2lMP'],'m2lMP');
-$debug = $_SESSION['identification'];
+// $debug = $_SESSION['identification'];
 
 include_once dispatcher::dispatch($_SESSION['m2lMP']);
 

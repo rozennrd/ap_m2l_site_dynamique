@@ -5,7 +5,7 @@
 	<main>
 		
 		<?php echo $messageConnexion;?>
-		<?php echo "session identification".$_SESSION['identification'] ?>
+		
 		Bonjour
 		<div class='texteAccueil'>
 			<h1><span>Présentation de la M2L</span></h1>
