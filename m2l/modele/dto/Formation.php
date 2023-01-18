@@ -1,4 +1,4 @@
-<?
+<?php
 class Formation {
     use Hydrate;
     private $idForma; 
@@ -9,7 +9,7 @@ class Formation {
     private $dateClotureInscription;
     private $effectifMax;
 
-    private function __construct() {}
+    public function __construct() {}
     
     public function setIdForma($unIdForma) {
         $this->idForma = $unIdForma; 
@@ -41,10 +41,14 @@ class Formation {
 
     public function getIdForma() {
         return $this->idForma; 
-    }
+    } 
 
     public function getIntitule(){
         return $this->intitule; 
+    }
+
+    public function getId() {
+        return $this->getIdForma();
     }
 
     public function getDescriptif() {

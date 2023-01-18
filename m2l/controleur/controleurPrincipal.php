@@ -77,8 +77,8 @@ $m2lMP->ajouterComposant($m2lMP->creerItemLien("accueil", "Accueil"));
 $m2lMP->ajouterComposant($m2lMP->creerItemLien("services", "Services"));
 $m2lMP->ajouterComposant($m2lMP->creerItemLien("locaux", "Locaux"));
 $m2lMP->ajouterComposant($m2lMP->creerItemLien("ligues", "Ligues"));
-if (isset($utilisateurActuel)) {
-	$m2lMP->ajouterComposant($m2lMP->creerItemLien("formations", "Formations"));
+if (isset($_SESSION['identification']) && $_SESSION["identification"]) {
+	$m2lMP->ajouterComposant($m2lMP->creerItemLien("formation", "Formation"));
 }
 
 $m2lMP->ajouterComposant($m2lMP->creerItemLien("connexion", $texteItemConnexion));
