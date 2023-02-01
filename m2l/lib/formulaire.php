@@ -60,6 +60,10 @@ class Formulaire{
 	}
 	
 	
+	public function creerInputHidden($unNom, $uneValeur) {
+		return "<input type='hidden' name=$unNom value=$uneValeur>";
+	}
+
 	public function creerInputMdp($unNom, $unId,  $required , $placeholder , $pattern){
 		$composant = "<input type = 'password' name = '" . $unNom . "' id = '" . $unId . "' ";
 		if (!empty($placeholder)){
@@ -91,7 +95,7 @@ class Formulaire{
 	
 	public function creerInputSubmit($unNom, $unId, $uneValue){
 		$composant = "<input type = 'submit' name = '" . $unNom . "' id = '" . $unId . "' ";
-		$composant .= "value = '" . $uneValue . "'/> ";
+		$composant .= "value = \"" . $uneValue . "\"/> ";
 		return $composant;
 	}
 
@@ -103,10 +107,10 @@ class Formulaire{
 	
 	
 	public function creerFormulaire(){
-		$this->formulaireToPrint = "<form method = '" .  $this->method . "' ";
-		$this->formulaireToPrint .= "action = '" .  $this->action . "' ";
-		$this->formulaireToPrint .= "name = '" .  $this->nom . "' ";
-		$this->formulaireToPrint .= "class = '" .  $this->style . "' >";
+		$this->formulaireToPrint = "<form method = \"" .  $this->method . "\" ";
+		$this->formulaireToPrint .= "action = \"" .  $this->action . "\" ";
+		$this->formulaireToPrint .= "name = \"" .  $this->nom . "\" ";
+		$this->formulaireToPrint .= "class = \"" .  $this->style . "\" >";
 		
 	
 		foreach ($this->tabComposants as $uneLigneComposants){

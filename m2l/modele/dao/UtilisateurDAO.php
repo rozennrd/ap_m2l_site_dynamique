@@ -25,6 +25,18 @@ class UtilisateurDAO {
         return $utilisateur; 
     }
 
-
+    // Fonction renvoyant le statut de l'inscription, ou null si l'utilisateur
+    // n'est pas inscrit. 
+    public static function getStatutInscription($idUtilisateur, $idForma) {
+        $sql = "select statutDemande from demandeInscription where idUser = :idUtilisateur and idForma = :idForma";
+        $req = dbConnex::getInstance()->prepare($sql);
+        $req->bindParam(":idUtilisateur", $idUtilisateur);
+        $req->bindParam(":idForma", $idForma);
+        $req->execute();
+        $res = $req->fetch();
+        return $res; // Si aucun statut n'est trouvé, retourne null : l'utilisateur n'est pas inscrit
+        // Sinon, on retourne le statut 
+        // Si l'utilisateur s'inscrit, alors la demande sera a minima "en attente"
+    }
 
 }

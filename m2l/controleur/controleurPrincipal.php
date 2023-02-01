@@ -30,7 +30,6 @@ if(isset($_POST['login']))
 	}
 	else
 	{
-		
 		$messageConnexion = "Login ou mot de passe incorrect";
 	}
 }
@@ -70,7 +69,7 @@ else
  */
 
 
-
+/***** GENERATION DU MENU **** */
 $m2lMP = new Menu("m2lMP");
 
 $m2lMP->ajouterComposant($m2lMP->creerItemLien("accueil", "Accueil"));
@@ -84,7 +83,7 @@ if (isset($_SESSION['identification']) && $_SESSION["identification"]) {
 $m2lMP->ajouterComposant($m2lMP->creerItemLien("connexion", $texteItemConnexion));
 
 $menuPrincipalM2L = $m2lMP->creerMenu($_SESSION['m2lMP'],'m2lMP');
-$debug = $_SESSION['identification'];
+
 
 include_once dispatcher::dispatch($_SESSION['m2lMP']);
 

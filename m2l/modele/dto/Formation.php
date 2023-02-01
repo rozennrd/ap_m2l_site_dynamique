@@ -56,15 +56,15 @@ class Formation {
     }
 
     public function getDuree() {
-        return $this->duree; 
+        return $this->duree . " jours"; 
     }
 
     public function getDateOuvertureInscription() {
-        return strtotime($this->dateOuvertureInscription);
+        return date("d/m/Y", strtotime($this->dateOuvertureInscription));
     }
 
     public function getDateClotureInscription() {
-        return strtotime($this->dateClotureInscription);
+        return date("d/m/Y", strtotime($this->dateClotureInscription));
     }
     
     public function getEffectifMax() {
@@ -81,6 +81,10 @@ class Formation {
         {
             return true; 
         }
+    }
+
+    public function getClass() {
+        return "Formation";
     }
     
 }

@@ -5,7 +5,6 @@ class Formations {
 
     public function __construct()
     {
-        echo "création d'un objet formations"; 
         $this->arrayFormations = array();
     }
 

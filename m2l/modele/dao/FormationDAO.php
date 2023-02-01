@@ -14,16 +14,24 @@ class FormationDAO {
         
         foreach($result as $formation)
         {
-            
-            
             $forma = new Formation();
             $forma->hydrate($formation);
-            echo $forma->getIntitule();
             $formaOuvertes->ajoutFormation($forma);
-            
         }
-        echo $formaOuvertes->getNbFormations();
+
         return $formaOuvertes;
     }
 
+    public static function getFormationParId($idFormation) {
+        // Gestion de la requête
+        $sql = "select * from formation where idForma = :id";
+        $req = dBConnex::getInstance()->prepare($sql);
+        $req->bindParam(":id", $idFormation);
+        $req->execute();
+        $result = $req->fetch(PDO::FETCH_ASSOC);
+        // création de l'objet formation
+        $formation = new Formation();
+        $formation->hydrate($result);
+        return $formation;
+    }
 }

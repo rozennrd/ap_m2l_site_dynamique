@@ -11,8 +11,8 @@ class Tableau {
     }
 
     public function genererVoirPlus($objet) {
-        $classe = $objet->get_class();
-        $lien = "index.php?m2lMP=$classe?id=" . urlencode($objet->getId());
+        $classe = $objet->getClass();
+        $lien = "index.php?m2lMP=$classe&id=" . urlencode($objet->getId());
         $lien = "<a href=$lien>Voir Plus</a>";
         return $lien;
     }
@@ -26,21 +26,17 @@ class Tableau {
             $tableau .= "<td>$key</td>";
         }
         $tableau .= "</thead><tbody>";
-        echo "bonjour"; 
-        echo $this->tcontent->getNbFormations;
         foreach($this->tcontent as $objet) {
-            echo "intitulés : ";
-            echo $objet->getIntitule(); 
             $tableau .= "<tr>";
+
             foreach($this->thead as $key=>$val) {
                 $method = "get" . ucfirst($val);
-                echo $method; 
+                echo $method."\n". method_exists($objet, $method). "\n"; 
                 if (method_exists($objet, $method)) 
                 {
-                    $attr = $objet->method();
+                    $attr = $objet->$method();
                     $tableau .= "<td>$attr</td>";
-                }
-                    
+                } 
             }
             if ($genererLienVersObjet) {
                 $lien = $this->genererVoirPlus($objet);
