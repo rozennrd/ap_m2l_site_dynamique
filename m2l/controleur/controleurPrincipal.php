@@ -84,6 +84,5 @@ $m2lMP->ajouterComposant($m2lMP->creerItemLien("connexion", $texteItemConnexion)
 
 $menuPrincipalM2L = $m2lMP->creerMenu($_SESSION['m2lMP'],'m2lMP');
 
-
 include_once dispatcher::dispatch($_SESSION['m2lMP']);
 

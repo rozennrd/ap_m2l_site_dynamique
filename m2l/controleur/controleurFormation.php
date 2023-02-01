@@ -18,6 +18,12 @@ if(isset($_POST['sumbitInscription']) && $_POST['sumbitInscription'] == "S'inscr
     InscriptionDAO::enregistrerNvInscription($utilisateurActuel->getIdUser(), $formationAAfficher->getId());
 }
 
+if(isset($_POST['sumbitAnnulationInscription'])) {
+    // Si quelqu'un souhaite se désinscrire (et a donc appuyé sur le bouton "annuler ma demande")
+    // Envoyer la requête avec le numéro de l'utilisateur actuel & le numéro de la formation
+    InscriptionDAO::supprimerInscription($utilisateurActuel->getIdUser(), $formationAAfficher->getId());
+}
+
 // Si un id est précisé, on affiche la formation en question et
 // On propose à l'utilisateur de s'inscrire. 
 if(isset($_GET["id"]) && $_GET['id']) {

@@ -7,8 +7,9 @@
     <main>
         <div class="articles">
         
-        <?php if (isset($tabAAfficher)) {
-            echo $tabAAfficher;
+        <?php if (isset($tabAAfficher)) { ?>
+            <h3>Formations Ouvertes</h3>
+            <?php echo $tabAAfficher;
         } else if (isset($formationAAfficher) && $formationAAfficher) {?>
             <div class="texteAccueil">  
             <h3><?php echo $formationAAfficher->getIntitule(); ?></h3>
