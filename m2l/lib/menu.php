@@ -33,8 +33,8 @@ class Menu{
 	 */
 	public function creerItemLien($unLien,$uneValeur){
 		$composant = array();
-		$composant[1] = $unLien ;
-		$composant[0] = $uneValeur ;
+		$composant[0] = $unLien ;
+		$composant[1] = $uneValeur ;
 		return $composant;
 	}
 
@@ -67,15 +67,15 @@ class Menu{
 	public function creerMenuLigues($composantActif){
 		$menu = "<ul class = '" .  $this->style . "'>";
 		foreach($this->composants as $composant){
-			if($composant[0] == $composantActif){
+			if($composant[1] == $composantActif){
 				$menu .= "<li class='actif'>";
-				$menu .=  $composant[1] ;
+				$menu .=  $composant[0] ;
 			}
 			else{
 				$menu .= "<li>";
 				$menu .= "<a href='index.php?action=afficher" ;
-				$menu .= "&ligue=" . $composant[0] . "' >";
-				$menu .= $composant[1] ;
+				$menu .= "&ligue=" . $composant[1] . "' >";
+				$menu .= $composant[0] ;
 				$menu .= "</a>";
 			}
 			$menu .= "</li>";

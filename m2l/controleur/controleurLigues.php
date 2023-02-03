@@ -13,12 +13,16 @@ $_SESSION['listeLigues'] = new Ligues(LigueDAO::lesLigues());
 /*****************************************************************************************************
  * Conserver dans une variable de session l'item actif du menu ligue
  *****************************************************************************************************/
-if(isset($_GET['ligue'])){
+
+ if(isset($_GET['ligue'])){
+	
 	$_SESSION['ligue']= $_GET['ligue'];
 }
 else
 {
+	
 	if(!isset($_SESSION['ligue'])){
+		
 		$_SESSION['ligue']="0";
 	}
 }

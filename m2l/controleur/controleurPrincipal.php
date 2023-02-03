@@ -11,9 +11,15 @@ require_once "modele/dao/UtilisateurDAO.php";
  */
 $messageConnexion = '';
 //echo "<script>alert(\""+$_SESSION['identification']+"\")</script>";
-
+echo ('Test session');
+var_dump(session_id());
+/*echo ('Test login');
+var_dump($_POST['login']);
+echo ('Test mdp');
+var_dump($_POST['mdp']);*/
 if(isset($_POST['login']))
 {
+	echo "coucou on est dans le if";
 	// Création d'un utilisateur + irrigation avec le login et le mdp récupérés
 	$unUtilisateur = new Utilisateur();
 	$unUtilisateur->setLogin($_POST['login']); 
@@ -22,9 +28,10 @@ if(isset($_POST['login']))
 	$_SESSION['identification'] = UtilisateurDAO::verification($unUtilisateur); // Vérification 
 	if (isset($_SESSION['identification']) && $_SESSION['identification'])
 	{
+		echo($_SESSION['identification']);
 		$utilisateurActuel = UtilisateurDAO::getUtilisateur($_SESSION['identification']);
 		$messageConnexion = "Vous êtes connecté";
-	
+		
 		// Insérer ici vos modifications / les choses qui dépendent de si votre utilisateur est identifié
 	}
 	else
@@ -77,10 +84,13 @@ $m2lMP->ajouterComposant($m2lMP->creerItemLien("accueil", "Accueil"));
 $m2lMP->ajouterComposant($m2lMP->creerItemLien("services", "Services"));
 $m2lMP->ajouterComposant($m2lMP->creerItemLien("locaux", "Locaux"));
 $m2lMP->ajouterComposant($m2lMP->creerItemLien("ligues", "Ligues"));
-$m2lMP->ajouterComposant($m2lMP->creerItemLien( $texteItemConnexion, "connexion"));
+if (isset($_SESSION['identification']) && $_SESSION["identification"]) {
+    $m2lMP->ajouterComposant($m2lMP->creerItemLien("formation", "Formation"));
+}
+
+$m2lMP->ajouterComposant($m2lMP->creerItemLien( "connexion",$texteItemConnexion ));
 
 $menuPrincipalM2L = $m2lMP->creerMenu($_SESSION['m2lMP'],'m2lMP');
-// $debug = $_SESSION['identification'];
 
 include_once dispatcher::dispatch($_SESSION['m2lMP']);
 

@@ -1,5 +1,8 @@
 <?php require_once 'lib/autoLoader.php';
- session_start();?>
+ /*session_start();*/
+ if(session_id() == "")
+     session_start();
+ ?>
 <!DOCTYPE html>
 <html lang="fr">
 	<head>

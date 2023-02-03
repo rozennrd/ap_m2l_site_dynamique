@@ -15,7 +15,7 @@ class UtilisateurDAO {
     }
 
     public static function getUtilisateur($unIdUtilisateur) {
-        $requetePrepa = dBConnex::getInstance()->prepare("SELECT * FROM utilisateur WHERE id=:id");
+        $requetePrepa = dBConnex::getInstance()->prepare("SELECT * FROM utilisateur WHERE idUser=:id");
         $requetePrepa->bindParam(":id", $unIdUtilisateur);
         $requetePrepa->execute();
         $utilisateurTab = $requetePrepa->fetch();

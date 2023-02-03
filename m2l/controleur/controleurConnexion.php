@@ -21,6 +21,7 @@ if(!isset($_SESSION['identification']) || $_SESSION['identification'] == null) {
 	
 	$formulaireConnexion->creerFormulaire();
 
+	$_SESSION['m2lMP']="accueil";
 	require_once 'vue/vueConnexion.php' ;
 
 }
@@ -29,5 +30,6 @@ else
 	$_SESSION['identification']=null;
 	$utilisateurActuel = null; 
 	$_SESSION['m2lMP']="accueil";
+	
 	header('location: index.php');
 }
