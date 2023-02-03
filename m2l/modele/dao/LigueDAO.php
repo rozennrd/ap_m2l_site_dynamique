@@ -26,14 +26,27 @@ public static function supprimerLigue($idLigue){
 
 }
 
+public static function ajouterLigue($idLigue){
+    $requetePrepa = DBConnex::getInstance()->prepare("insert into ligue (idLigue , nomLigue , site , descriptif ) values (:idLigue , :nomLigue , :site , :descriptif)");
+    
+    $requetePrepa->bindParam(":nomLigue", $unNomLigue);
+    $requetePrepa->bindParam(":site", $unSite);
+    $requetePrepa->bindParam(":descriptif", $unDescriptif);
+            
+    return $requetePrepa->execute();
+}
 
+public static function modifierLigue($idLigue){
+    $requetePrepa = DBConnex::getInstance()->prepare("update ligue set nomLigue=:nomLigue , site=:site , descriptif=:descriptif WHERE idLiguee=:idLigue");
 
+    $requetePrepa->bindParam(":idLigue", $idLigue);
+    $requetePrepa->bindParam(":nomLigue", $unNomLigue);
+    $requetePrepa->bindParam(":site", $unSite);
+    $requetePrepa->bindParam(":descriptif", $unDescriptif);
+            
+    return $requetePrepa->execute();
 
-
-
-
-
-
+}
 
 
 

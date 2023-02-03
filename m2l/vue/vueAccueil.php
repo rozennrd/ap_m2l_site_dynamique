@@ -14,7 +14,7 @@
 			<p>Installée depuis 2003 dans la banlieue Nancéienne, la M2L accueille l'ensemble du mouvement sportif Lorrain qui représente près de 6 500 clubs, plus de 525 000 licenciés et près de 50 000 bénévoles.</p>
 		</div>
 		<div class='images'>
-				<img src="images/sport1.jpg" >
+				<img src="images/sport3.jpg" >
 				<img src="images/sport4.jpg" >
 				<img src="images/sport5.jpg" >
 		</div>	
