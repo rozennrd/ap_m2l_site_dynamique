@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 16 nov. 2022 à 09:56
--- Version du serveur :  5.7.31
--- Version de PHP : 7.3.21
+-- Généré le : lun. 06 mars 2023 à 15:20
+-- Version du serveur : 5.7.36
+-- Version de PHP : 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -2460,6 +2460,13 @@ CREATE TABLE IF NOT EXISTS `demandeinscription` (
   KEY `I_FK_DEMANDEINSCRIPTION_FORMATION` (`idForma`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Déchargement des données de la table `demandeinscription`
+--
+
+INSERT INTO `demandeinscription` (`idUser`, `idForma`, `statutDemande`) VALUES
+('1', '2', 'Acceptée');
+
 -- --------------------------------------------------------
 
 --
@@ -2514,13 +2521,23 @@ DROP TABLE IF EXISTS `formation`;
 CREATE TABLE IF NOT EXISTS `formation` (
   `idForma` char(32) NOT NULL,
   `intitule` char(32) DEFAULT NULL,
-  `descriptif` char(32) DEFAULT NULL,
+  `descriptif` varchar(150) DEFAULT NULL,
   `duree` char(32) DEFAULT NULL,
-  `dateOuvertureInscription` char(32) DEFAULT NULL,
-  `dateClotureInscription` char(32) DEFAULT NULL,
+  `dateOuvertureInscription` date DEFAULT NULL,
+  `dateClotureInscription` date DEFAULT NULL,
   `effectifMax` char(32) DEFAULT NULL,
   PRIMARY KEY (`idForma`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `formation`
+--
+
+INSERT INTO `formation` (`idForma`, `intitule`, `descriptif`, `duree`, `dateOuvertureInscription`, `dateClotureInscription`, `effectifMax`) VALUES
+('2', 'Convention sur le climat', 'qua adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices', '2', '2023-01-17', '2023-03-31', '20'),
+('3', 'La danse pour découvrir le monde', 'quis commodo odio aenean sed adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum posuere urna nec tincidunt praesent', '4', '2023-01-17', '2023-03-22', '2'),
+('fo4', 'formation bonjour', 'placerat vestibulus lectus mauris ultrices eros in cursus turpis massa tincidunt dui ut ornare lectus sit amet est placerat in egestas erat', '10', '2023-03-14', '2023-03-17', '10'),
+('for6', 'formation au management du sport', 'loremipsumdolorsitamet', '6', '2023-03-16', '2023-04-12', '10');
 
 -- --------------------------------------------------------
 
