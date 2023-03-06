@@ -24,6 +24,14 @@ class Formulaire{
 	public function ajouterComposantLigne($unComposant){
 		$this->ligneComposants[] = $unComposant;
 	}
+
+	public function ajouterComposants($tabComposants){
+		foreach($tabComposants as $unComposant){
+			$this->ajouterComposantLigne($unComposant);
+			$this->ajouterComposantTab(); 
+		}
+		
+	}
 	
 	public function ajouterComposantTab(){
 		$this->tabComposants[] = $this->ligneComposants;
@@ -41,6 +49,15 @@ class Formulaire{
 	}
 	
 	
+	public function creerInputNombre($unNom, $unId, $uneValeur) {
+		$composant = "<input type = 'number' name = '" . $unNom . "' id = '" . $unId . "' ";
+		if (!empty($uneValeur)){
+			$composant .= "value = '" . $uneValeur . "' ";
+		}
+		$composant .= "/>";
+		return $composant;
+	}
+
 	public function creerInputTexte($unNom, $unId, $uneValue , $required , $placeholder , $pattern){
 		$composant = "<input type = 'text' name = '" . $unNom . "' id = '" . $unId . "' ";
 		if (!empty($uneValue)){
@@ -58,8 +75,31 @@ class Formulaire{
 		$composant .= "/>";
 		return $composant;
 	}
+
+	public function creerInputDate($unNom, $unId, $uneValue , $required=0 , $placeholder=null , $initial=null){
+		$composant = "<input type = 'date' name = '" . $unNom . "' id = '" . $unId . "' ";
+		if (!empty($uneValue)){
+			$composant .= "value = '" . $uneValue . "' ";
+		}
+		if (!empty($placeholder)){
+			$composant .= "placeholder = '" . $placeholder . "' ";
+		}
+		if ( $required = 1){
+			$composant .= "required ";
+		}
+		if ( $initial){
+			$composant .= "value= ".$initial." ";
+		}
+		
+		$composant .= "/>";
+		return $composant;
+	}
 	
 	
+	public function creerInputHidden($unNom, $uneValeur) {
+		return "<input type='hidden' name=$unNom value=$uneValeur>";
+	}
+
 	public function creerInputMdp($unNom, $unId,  $required , $placeholder , $pattern){
 		$composant = "<input type = 'password' name = '" . $unNom . "' id = '" . $unId . "' ";
 		if (!empty($placeholder)){
@@ -83,15 +123,15 @@ class Formulaire{
 	public function creerSelect($unNom, $unId, $unLabel, $options){
 		$composant = "<select  name = '" . $unNom . "' id = '" . $unId . "' >";
 		foreach ($options as $option){
-			$composant .= "<option value = " ;
+			$composant .= "<option value = " . $option . '>';
 		}
-		$composant .= "</select></td></tr>";
+		$composant .= "</select>";
 		return $composant;
 	}	
 	
 	public function creerInputSubmit($unNom, $unId, $uneValue){
 		$composant = "<input type = 'submit' name = '" . $unNom . "' id = '" . $unId . "' ";
-		$composant .= "value = '" . $uneValue . "'/> ";
+		$composant .= "value = \"" . $uneValue . "\"/> ";
 		return $composant;
 	}
 
@@ -103,25 +143,31 @@ class Formulaire{
 	
 	
 	public function creerFormulaire(){
-		$this->formulaireToPrint = "<form method = '" .  $this->method . "' ";
-		$this->formulaireToPrint .= "action = '" .  $this->action . "' ";
-		$this->formulaireToPrint .= "name = '" .  $this->nom . "' ";
-		$this->formulaireToPrint .= "class = '" .  $this->style . "' >";
+		$this->formulaireToPrint = "<form method = \"" .  $this->method . "\" ";
+		$this->formulaireToPrint .= "action = \"" .  $this->action . "\" ";
+		$this->formulaireToPrint .= "name = \"" .  $this->nom . "\" ";
+		$this->formulaireToPrint .= "class = \"" .  $this->style . "\" >";
 		
 	
 		foreach ($this->tabComposants as $uneLigneComposants){
 			$this->formulaireToPrint .= "<div class = 'ligne'>";
 			foreach ($uneLigneComposants as $unComposant){
-				$this->formulaireToPrint .= $unComposant ;
+				$this->formulaireToPrint .= $unComposant;
 			}
 			$this->formulaireToPrint .= "</div>";
 		}
 		$this->formulaireToPrint .= "</form>";
-		return $this->formulaireToPrint ;
+		return $this->formulaireToPrint;
 	}
 	
 	public function afficherFormulaire(){
-		echo $this->formulaireToPrint ;
+		if(isset($this->formulaireToPrint)) { 
+			echo $this->formulaireToPrint ;
+		}
+		else 
+		{
+			echo $this->creerFormulaire();
+		}
 	}
 	
 }

@@ -1,13 +1,83 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Hôte : 127.0.0.1:3306
+-- Généré le : lun. 06 mars 2023 à 15:20
+-- Version du serveur : 5.7.36
+-- Version de PHP : 8.0.13
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de données : `m2ldynamique`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `bulletin`
+--
+
+DROP TABLE IF EXISTS `bulletin`;
+CREATE TABLE IF NOT EXISTS `bulletin` (
+  `idBulletin` char(32) NOT NULL,
+  `idContrat` char(32) NOT NULL,
+  `mois` char(32) DEFAULT NULL,
+  `annee` char(32) DEFAULT NULL,
+  `bulletinPdf` char(32) DEFAULT NULL,
+  PRIMARY KEY (`idBulletin`),
+  KEY `I_FK_BULLETIN_CONTRAT` (`idContrat`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `club`
+--
+
+DROP TABLE IF EXISTS `club`;
+CREATE TABLE IF NOT EXISTS `club` (
+  `idClub` char(32) NOT NULL,
+  `idLigue` char(32) NOT NULL,
+  `idCommune` int(11) NOT NULL,
+  `nomClub` char(32) DEFAULT NULL,
+  `adresseClub` char(32) DEFAULT NULL,
+  PRIMARY KEY (`idClub`),
+  KEY `I_FK_CLUB_LIGUE` (`idLigue`),
+  KEY `I_FK_CLUB_COMMUNE` (`idCommune`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `club`
+--
+
+INSERT INTO `club` (`idClub`, `idLigue`, `idCommune`, `nomClub`, `adresseClub`) VALUES
+('1', '1', 509, 'Club de Boxe d\'Agincourt', '12 rue Jean Jaurès AGINCOURT');
+
+-- --------------------------------------------------------
+
 --
 -- Structure de la table `commune`
 --
 
-CREATE TABLE `commune` (
-  `idCommune` int(11) NOT NULL,
+DROP TABLE IF EXISTS `commune`;
+CREATE TABLE IF NOT EXISTS `commune` (
+  `idCommune` int(11) NOT NULL AUTO_INCREMENT,
   `codePostal` int(5) NOT NULL DEFAULT '0',
   `nomCommune` varchar(40) NOT NULL,
-  `codeDepartement` int(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `codeDepartement` int(2) NOT NULL,
+  PRIMARY KEY (`idCommune`),
+  KEY `codeDepartement` (`codeDepartement`)
+) ENGINE=InnoDB AUTO_INCREMENT=2341 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `commune`
@@ -2359,12 +2429,55 @@ INSERT INTO `commune` (`idCommune`, `codePostal`, `nomCommune`, `codeDepartement
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `contrat`
+--
+
+DROP TABLE IF EXISTS `contrat`;
+CREATE TABLE IF NOT EXISTS `contrat` (
+  `idContrat` char(32) NOT NULL,
+  `idUser` char(32) NOT NULL,
+  `dateDebut` char(32) DEFAULT NULL,
+  `dateFin` char(32) DEFAULT NULL,
+  `typeContrat` char(32) DEFAULT NULL,
+  `nbHeures` char(32) DEFAULT NULL,
+  PRIMARY KEY (`idContrat`),
+  KEY `I_FK_CONTRAT_UTILISATEUR` (`idUser`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `demandeinscription`
+--
+
+DROP TABLE IF EXISTS `demandeinscription`;
+CREATE TABLE IF NOT EXISTS `demandeinscription` (
+  `idUser` char(32) NOT NULL,
+  `idForma` char(32) NOT NULL,
+  `statutDemande` char(32) DEFAULT NULL,
+  PRIMARY KEY (`idUser`,`idForma`),
+  KEY `I_FK_DEMANDEINSCRIPTION_UTILISATEUR` (`idUser`),
+  KEY `I_FK_DEMANDEINSCRIPTION_FORMATION` (`idForma`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `demandeinscription`
+--
+
+INSERT INTO `demandeinscription` (`idUser`, `idForma`, `statutDemande`) VALUES
+('1', '2', 'Acceptée');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `departement`
 --
 
-CREATE TABLE `departement` (
+DROP TABLE IF EXISTS `departement`;
+CREATE TABLE IF NOT EXISTS `departement` (
   `codeDepartement` int(2) NOT NULL,
-  `nomDepartement` varchar(40) NOT NULL
+  `nomDepartement` varchar(40) NOT NULL,
+  PRIMARY KEY (`codeDepartement`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -2380,41 +2493,151 @@ INSERT INTO `departement` (`codeDepartement`, `nomDepartement`) VALUES
 -- --------------------------------------------------------
 
 --
--- Index pour les tables déchargées
+-- Structure de la table `fonction`
 --
 
---
--- Index pour la table `commune`
---
-ALTER TABLE `commune`
-  ADD PRIMARY KEY (`idCommune`),
-  ADD KEY `codeDepartement` (`codeDepartement`);
+DROP TABLE IF EXISTS `fonction`;
+CREATE TABLE IF NOT EXISTS `fonction` (
+  `idFonc` char(32) NOT NULL,
+  `libelle` char(32) DEFAULT NULL,
+  PRIMARY KEY (`idFonc`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Index pour la table `departement`
---
-ALTER TABLE `departement`
-  ADD PRIMARY KEY (`codeDepartement`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
+-- Déchargement des données de la table `fonction`
 --
 
+INSERT INTO `fonction` (`idFonc`, `libelle`) VALUES
+('rf', 'Responsable des formations'),
+('rrh', 'Responsable RH');
+
+-- --------------------------------------------------------
+
 --
--- AUTO_INCREMENT pour la table `commune`
+-- Structure de la table `formation`
 --
-ALTER TABLE `commune`
-  MODIFY `idCommune` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2341;
+
+DROP TABLE IF EXISTS `formation`;
+CREATE TABLE IF NOT EXISTS `formation` (
+  `idForma` char(32) NOT NULL,
+  `intitule` char(32) DEFAULT NULL,
+  `descriptif` varchar(150) DEFAULT NULL,
+  `duree` char(32) DEFAULT NULL,
+  `dateOuvertureInscription` date DEFAULT NULL,
+  `dateClotureInscription` date DEFAULT NULL,
+  `effectifMax` char(32) DEFAULT NULL,
+  PRIMARY KEY (`idForma`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `formation`
+--
+
+INSERT INTO `formation` (`idForma`, `intitule`, `descriptif`, `duree`, `dateOuvertureInscription`, `dateClotureInscription`, `effectifMax`) VALUES
+('2', 'Convention sur le climat', 'qua adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices', '2', '2023-01-17', '2023-03-31', '20'),
+('3', 'La danse pour découvrir le monde', 'quis commodo odio aenean sed adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum posuere urna nec tincidunt praesent', '4', '2023-01-17', '2023-03-22', '2'),
+('fo4', 'formation bonjour', 'placerat vestibulus lectus mauris ultrices eros in cursus turpis massa tincidunt dui ut ornare lectus sit amet est placerat in egestas erat', '10', '2023-03-14', '2023-03-17', '10'),
+('for6', 'formation au management du sport', 'loremipsumdolorsitamet', '6', '2023-03-16', '2023-04-12', '10');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `ligue`
+--
+
+DROP TABLE IF EXISTS `ligue`;
+CREATE TABLE IF NOT EXISTS `ligue` (
+  `idLigue` char(32) NOT NULL,
+  `nomLigue` char(32) DEFAULT NULL,
+  `site` char(32) DEFAULT NULL,
+  `descriptif` char(32) DEFAULT NULL,
+  PRIMARY KEY (`idLigue`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `ligue`
+--
+
+INSERT INTO `ligue` (`idLigue`, `nomLigue`, `site`, `descriptif`) VALUES
+('1', 'Ligue Lorraine de Boxe', 'llb.fr', 'Ligue lorraine de boxe');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `utilisateur`
+--
+
+DROP TABLE IF EXISTS `utilisateur`;
+CREATE TABLE IF NOT EXISTS `utilisateur` (
+  `idUser` char(32) NOT NULL,
+  `idLigue` char(32) DEFAULT NULL,
+  `idFonc` char(32) DEFAULT NULL,
+  `idClub` char(32) DEFAULT NULL,
+  `nom` char(32) DEFAULT NULL,
+  `prenom` char(32) DEFAULT NULL,
+  `login` char(32) DEFAULT NULL,
+  `mdp` char(32) DEFAULT NULL,
+  `statut` char(32) DEFAULT NULL,
+  `typeUser` char(32) DEFAULT NULL,
+  PRIMARY KEY (`idUser`),
+  KEY `I_FK_UTILISATEUR_LIGUE` (`idLigue`),
+  KEY `I_FK_UTILISATEUR_FONCTION` (`idFonc`),
+  KEY `I_FK_UTILISATEUR_CLUB` (`idClub`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`idUser`, `idLigue`, `idFonc`, `idClub`, `nom`, `prenom`, `login`, `mdp`, `statut`, `typeUser`) VALUES
+('1', '1', 'rrh', '1', 'Headstrong', 'Peony', 'pheadstrong', 'pheadstrong', 'Salarié', NULL),
+('2', '1', 'rf', '1', 'Hogpen', 'Semolina', 'shopgen', 'shopgen', 'Salarié', NULL),
+('3', '1', NULL, '1', 'Oldbuck', 'Theodoric', 'toldbuck', 'toldbuck', 'Salarié', NULL),
+('4', '1', NULL, '1', 'Boffin', 'Malva', 'mboffin', 'mboffin', 'Bénévole', NULL);
 
 --
 -- Contraintes pour les tables déchargées
 --
 
 --
+-- Contraintes pour la table `bulletin`
+--
+ALTER TABLE `bulletin`
+  ADD CONSTRAINT `bulletin_ibfk_1` FOREIGN KEY (`idContrat`) REFERENCES `contrat` (`idContrat`);
+
+--
+-- Contraintes pour la table `club`
+--
+ALTER TABLE `club`
+  ADD CONSTRAINT `club_ibfk_1` FOREIGN KEY (`idCommune`) REFERENCES `commune` (`idCommune`),
+  ADD CONSTRAINT `club_ibfk_2` FOREIGN KEY (`idLigue`) REFERENCES `ligue` (`idLigue`);
+
+--
 -- Contraintes pour la table `commune`
 --
 ALTER TABLE `commune`
   ADD CONSTRAINT `communeDepartement` FOREIGN KEY (`codeDepartement`) REFERENCES `departement` (`codeDepartement`);
+
+--
+-- Contraintes pour la table `contrat`
+--
+ALTER TABLE `contrat`
+  ADD CONSTRAINT `contrat_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `utilisateur` (`idUser`);
+
+--
+-- Contraintes pour la table `demandeinscription`
+--
+ALTER TABLE `demandeinscription`
+  ADD CONSTRAINT `demandeinscription_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `utilisateur` (`idUser`),
+  ADD CONSTRAINT `demandeinscription_ibfk_2` FOREIGN KEY (`idForma`) REFERENCES `formation` (`idForma`);
+
+--
+-- Contraintes pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  ADD CONSTRAINT `utilisateur_ibfk_1` FOREIGN KEY (`idLigue`) REFERENCES `ligue` (`idLigue`),
+  ADD CONSTRAINT `utilisateur_ibfk_2` FOREIGN KEY (`idFonc`) REFERENCES `fonction` (`idFonc`),
+  ADD CONSTRAINT `utilisateur_ibfk_3` FOREIGN KEY (`idClub`) REFERENCES `club` (`idClub`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

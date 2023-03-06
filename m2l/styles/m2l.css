@@ -1,5 +1,5 @@
 @charset "ISO-8859-1";
-*{
+ *{
 	margin: 0;
 	padding: 0;
 }
@@ -7,14 +7,14 @@
 html, body {
   font-family: sans-serif;
 }
-
+ 
 /****************************************************/
 /*styles pour le conteneur                             */
 /****************************************************/
 .conteneur{
 	margin: 0px;
 	padding: 0px;
-	width: 100%
+	width: 100%;
 	font-size: 0px;
 }
 
@@ -22,20 +22,20 @@ html, body {
 /*styles pour le header                             */
 /****************************************************/
 header {
-  height: 200px;
+  height: auto;
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
   z-index: 10;
-}
+} 
 
 /****************************************************/
 /*styles pour la zone centrale de la page           */
 /****************************************************/
 main {
 	margin: 0px;
-	padding: 0px;
+	padding: 1px;
 	min-height: 600px;
 	background-color: #f0f0f0;
  	font-size: 0px;
@@ -54,7 +54,7 @@ main {
 	width: 20%;
 	vertical-align: top;
 	font-size: 15px;
-}
+} 
 
 /**********************************************************************/
 /*styles pour la zone droite de la zone centrale de la page           */
@@ -64,7 +64,7 @@ main {
 	width: 80%;	
 	font-size: 15px;
 	vertical-align: top;
-}
+} 
 
 
 /****************************************************/
@@ -98,7 +98,7 @@ footer p{
 /*styles pour le bandeau                            */
 /****************************************************/
 .bandeau {
-  height: 80%;
+  height: 9rem;
   background: linear-gradient(rgba(0, 0, 150, 0.5), rgba(0, 0, 200, 0.6)), url("../images/header2.jpg");
 }
 
@@ -156,10 +156,14 @@ nav.menuPrincipal ul li.actif {
 	font-size: 17px;
 }
 
+.inline-block {
+	display: inline-flex;
+}
+
 .texteAccueil h1{
 	padding-top: 20px;
 	padding-bottom: 20px;
-	text-algn: center;
+	text-align: center;
 	text-align: center;
 }
 
@@ -331,4 +335,27 @@ a.anchor {
 	text-align: center;
 	font-weight: bold;
 	color: red;
+}
+
+/********************************************/
+/*  Styles pour les tableaux dans le main   */
+/********************************************/
+
+table {
+	width:100%;
+	margin:3rem;
+	font-size:1rem; 
+	height: auto;
+	padding:3em;
+	border-collapse:collapse;
+}
+
+.message {
+	text-align:center; 
+	font-size:1.5rem; 
+	padding: 2rem; 
+}
+
+.flex {
+	display:flex; 
 }
