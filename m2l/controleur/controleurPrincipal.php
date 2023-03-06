@@ -20,6 +20,7 @@ if(isset($_POST['login']))
 	$unUtilisateur->setMdp($_POST['mdp']);
 	
 	$_SESSION['identification'] = UtilisateurDAO::verification($unUtilisateur); // Vérification 
+	
 	if (isset($_SESSION['identification']) && $_SESSION['identification'])
 	{
 		$utilisateurActuel = UtilisateurDAO::getUtilisateur($_SESSION['identification']);
@@ -67,7 +68,6 @@ else
  * c’est le responsable formation qui gère les formations : il devra pouvoir, ajouter,
  * modifier, consulter et supprimer les formations.
  */
-
 
 /***** GENERATION DU MENU **** */
 $m2lMP = new Menu("m2lMP");

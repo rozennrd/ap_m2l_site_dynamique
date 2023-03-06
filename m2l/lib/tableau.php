@@ -10,14 +10,23 @@ class Tableau {
         $this->tcontent = $tcontent; 
     }
 
-    public function genererVoirPlus($objet) {
+    public function genererVoirPlus($objet, $texte="Voir plus") {
         $classe = $objet->getClass();
         $lien = "index.php?m2lMP=$classe&id=" . urlencode($objet->getId());
-        $lien = "<a href=$lien>Voir Plus</a>";
+        $lien = "<a href=$lien>$texte</a>";
         return $lien;
     }
 
-    public function editer($genererLienVersObjet) {
+    public function genererSupprimer($objet) {
+        $classe = $objet->getClass();
+        // [cybersecu] Attention : vulnérabilité aux attaques CSRF 
+        // TODO remodeler pour éviter les attaques csrf.
+        $lien = "index.php?m2lMP=$classe&id=" . urlencode($objet->getId())."&supprimer=true";
+        $lien = "<a href=$lien>Supprimer</a>";
+        return $lien;
+    }
+
+    public function editer($genererLienVersObjet, $texte="Voir plus", $genererLienSupprimer=false) {
         // Générer un tableau à partir des objets et attributs. Renvoie 
         // Ce tableau sous forme de string. 
         $tableau = "<table>";
@@ -31,7 +40,7 @@ class Tableau {
 
             foreach($this->thead as $key=>$val) {
                 $method = "get" . ucfirst($val);
-                echo $method."\n". method_exists($objet, $method). "\n"; 
+                // echo de débug : echo "tableau.php >  " .$method."\n". method_exists($objet, $method). "\n"; 
                 if (method_exists($objet, $method)) 
                 {
                     $attr = $objet->$method();
@@ -39,16 +48,40 @@ class Tableau {
                 } 
             }
             if ($genererLienVersObjet) {
-                $lien = $this->genererVoirPlus($objet);
+                $lien = $this->genererVoirPlus($objet, $texte);
+                $tableau .= "<td>$lien</td>";
+            }
+            if ($genererLienSupprimer) {
+                $lien = $this->genererSupprimer($objet) ; 
                 $tableau .= "<td>$lien</td>";
             }
             $tableau .= "</tr>";
+
         }
         $tableau .= "</tbody>";
         $tableau .= "</table>";
         return $tableau;
     }
 
+    public static function editerAsTable($tcontent, $thead=[]) {
+        // Prend en paramètre un tableau de tableaux et les renvoie sous forme de str <table></table>
+        $ch = "<table><thead>";
+        foreach ($thead as $k=>$elemHead) {
+            $ch .= "<td>$elemHead</td>";
+        }
+        $ch.="</thead><tbody>";
+        foreach ($tcontent as $ligne) {
+            // echo var_dump($ligne);
+            $ch.="<tr>";
+            foreach($ligne as $k=>$v) {
+                $ch.="<td>$v</td>";
+            }
+            
+            $ch.="</tr>";
+        }
 
+        $ch.="</tbody></table>";
+        return $ch;
+    }
 
 }

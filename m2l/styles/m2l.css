@@ -156,6 +156,10 @@ nav.menuPrincipal ul li.actif {
 	font-size: 17px;
 }
 
+.inline-block {
+	display: inline-flex;
+}
+
 .texteAccueil h1{
 	padding-top: 20px;
 	padding-bottom: 20px;
@@ -350,4 +354,8 @@ table {
 	text-align:center; 
 	font-size:1.5rem; 
 	padding: 2rem; 
+}
+
+.flex {
+	display:flex; 
 }
