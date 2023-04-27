@@ -11,7 +11,7 @@
         <?php if(isset($tabDemandes) ){
             ?>
             <div class=texteAccueil>
-            <a class="texteAccueil" href="index.php?m2lMP=Formation">Retour</a>
+            <a class="texteAccueil btn-retour" href="index.php?m2lMP=Formation">Retour</a>
             </div>
             <?php
             echo $tabDemandes;
@@ -26,6 +26,9 @@
         </div>
         <?php if (isset($formulaireAjoutFormation)){?>
             <div class="texteAccueil">
+            
+            <a class="texteAccueil btn-retour" href="index.php?m2lMP=Formation">Retour</a>
+            
                 <h3>Ajouter une formation</h3>
             
             <?php
@@ -40,12 +43,13 @@
             <h3>Formations Ouvertes</h3>
             <?php echo $tabAAfficher;
 
-        } else if (isset($formationAAfficher) && $formationAAfficher) {?>
+        } else if (isset($formationAAfficher) && $formationAAfficher) { echo "coucou"?>
+        
         <!-- Voir une formation en particulier ; si responsable, formulaire de modification-->
             <?php if (isset($formulaireModificationFormation)){
                 ?>
                 <div  class="texteAccueil">
-                <a class="texteAccueil" href="index.php?m2lMP=Formation">Retour</a>
+                <a class="texteAccueil btn-retour" href="index.php?m2lMP=Formation">Retour</a>
                 <h3>Modifier la formation <?php $formationAAfficher->getIntitule();?></h3>
                 <?php
                 echo $formulaireModificationFormation->afficherFormulaire(); ?>
@@ -54,7 +58,7 @@
             <?php } else {?>
             <!-- Si l'utilisateur n'est pas responsable, affichage des infos + demande d'inscription -->
             <div class="texteAccueil">  
-            <a class="texteAccueil" href="index.php?m2lMP=Formation">Retour</a>
+            <a class="texteAccueil btn-retour" href="index.php?m2lMP=Formation">Retour</a>
             <h3><?php echo $formationAAfficher->getIntitule(); ?></h3>
             <p>Durée : <?php echo $formationAAfficher->getDuree();?></p>
             <p><?php echo $formationAAfficher->getDescriptif();?></p>

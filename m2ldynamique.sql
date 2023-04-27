@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.1deb5ubuntu1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le : lun. 06 mars 2023 à 15:20
--- Version du serveur : 5.7.36
--- Version de PHP : 8.0.13
+-- Host: localhost:8111
+-- Generation Time: Apr 27, 2023 at 04:38 PM
+-- Server version: 8.0.32-0ubuntu0.22.04.2
+-- PHP Version: 8.1.2-1ubuntu2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,46 +18,39 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `m2ldynamique`
+-- Database: `m2ldynamique`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `bulletin`
+-- Table structure for table `bulletin`
 --
 
-DROP TABLE IF EXISTS `bulletin`;
-CREATE TABLE IF NOT EXISTS `bulletin` (
+CREATE TABLE `bulletin` (
   `idBulletin` char(32) NOT NULL,
   `idContrat` char(32) NOT NULL,
   `mois` char(32) DEFAULT NULL,
   `annee` char(32) DEFAULT NULL,
-  `bulletinPdf` char(32) DEFAULT NULL,
-  PRIMARY KEY (`idBulletin`),
-  KEY `I_FK_BULLETIN_CONTRAT` (`idContrat`)
+  `bulletinPdf` char(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `club`
+-- Table structure for table `club`
 --
 
-DROP TABLE IF EXISTS `club`;
-CREATE TABLE IF NOT EXISTS `club` (
+CREATE TABLE `club` (
   `idClub` char(32) NOT NULL,
   `idLigue` char(32) NOT NULL,
-  `idCommune` int(11) NOT NULL,
+  `idCommune` int NOT NULL,
   `nomClub` char(32) DEFAULT NULL,
-  `adresseClub` char(32) DEFAULT NULL,
-  PRIMARY KEY (`idClub`),
-  KEY `I_FK_CLUB_LIGUE` (`idLigue`),
-  KEY `I_FK_CLUB_COMMUNE` (`idCommune`)
+  `adresseClub` char(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `club`
+-- Dumping data for table `club`
 --
 
 INSERT INTO `club` (`idClub`, `idLigue`, `idCommune`, `nomClub`, `adresseClub`) VALUES
@@ -66,21 +59,18 @@ INSERT INTO `club` (`idClub`, `idLigue`, `idCommune`, `nomClub`, `adresseClub`) 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `commune`
+-- Table structure for table `commune`
 --
 
-DROP TABLE IF EXISTS `commune`;
-CREATE TABLE IF NOT EXISTS `commune` (
-  `idCommune` int(11) NOT NULL AUTO_INCREMENT,
-  `codePostal` int(5) NOT NULL DEFAULT '0',
+CREATE TABLE `commune` (
+  `idCommune` int NOT NULL,
+  `codePostal` int NOT NULL DEFAULT '0',
   `nomCommune` varchar(40) NOT NULL,
-  `codeDepartement` int(2) NOT NULL,
-  PRIMARY KEY (`idCommune`),
-  KEY `codeDepartement` (`codeDepartement`)
-) ENGINE=InnoDB AUTO_INCREMENT=2341 DEFAULT CHARSET=latin1;
+  `codeDepartement` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `commune`
+-- Dumping data for table `commune`
 --
 
 INSERT INTO `commune` (`idCommune`, `codePostal`, `nomCommune`, `codeDepartement`) VALUES
@@ -2429,39 +2419,32 @@ INSERT INTO `commune` (`idCommune`, `codePostal`, `nomCommune`, `codeDepartement
 -- --------------------------------------------------------
 
 --
--- Structure de la table `contrat`
+-- Table structure for table `contrat`
 --
 
-DROP TABLE IF EXISTS `contrat`;
-CREATE TABLE IF NOT EXISTS `contrat` (
+CREATE TABLE `contrat` (
   `idContrat` char(32) NOT NULL,
   `idUser` char(32) NOT NULL,
   `dateDebut` char(32) DEFAULT NULL,
   `dateFin` char(32) DEFAULT NULL,
   `typeContrat` char(32) DEFAULT NULL,
-  `nbHeures` char(32) DEFAULT NULL,
-  PRIMARY KEY (`idContrat`),
-  KEY `I_FK_CONTRAT_UTILISATEUR` (`idUser`)
+  `nbHeures` char(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `demandeinscription`
+-- Table structure for table `demandeinscription`
 --
 
-DROP TABLE IF EXISTS `demandeinscription`;
-CREATE TABLE IF NOT EXISTS `demandeinscription` (
+CREATE TABLE `demandeinscription` (
   `idUser` char(32) NOT NULL,
   `idForma` char(32) NOT NULL,
-  `statutDemande` char(32) DEFAULT NULL,
-  PRIMARY KEY (`idUser`,`idForma`),
-  KEY `I_FK_DEMANDEINSCRIPTION_UTILISATEUR` (`idUser`),
-  KEY `I_FK_DEMANDEINSCRIPTION_FORMATION` (`idForma`)
+  `statutDemande` char(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `demandeinscription`
+-- Dumping data for table `demandeinscription`
 --
 
 INSERT INTO `demandeinscription` (`idUser`, `idForma`, `statutDemande`) VALUES
@@ -2470,18 +2453,16 @@ INSERT INTO `demandeinscription` (`idUser`, `idForma`, `statutDemande`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `departement`
+-- Table structure for table `departement`
 --
 
-DROP TABLE IF EXISTS `departement`;
-CREATE TABLE IF NOT EXISTS `departement` (
-  `codeDepartement` int(2) NOT NULL,
-  `nomDepartement` varchar(40) NOT NULL,
-  PRIMARY KEY (`codeDepartement`)
+CREATE TABLE `departement` (
+  `codeDepartement` int NOT NULL,
+  `nomDepartement` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `departement`
+-- Dumping data for table `departement`
 --
 
 INSERT INTO `departement` (`codeDepartement`, `nomDepartement`) VALUES
@@ -2493,18 +2474,16 @@ INSERT INTO `departement` (`codeDepartement`, `nomDepartement`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `fonction`
+-- Table structure for table `fonction`
 --
 
-DROP TABLE IF EXISTS `fonction`;
-CREATE TABLE IF NOT EXISTS `fonction` (
+CREATE TABLE `fonction` (
   `idFonc` char(32) NOT NULL,
-  `libelle` char(32) DEFAULT NULL,
-  PRIMARY KEY (`idFonc`)
+  `libelle` char(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `fonction`
+-- Dumping data for table `fonction`
 --
 
 INSERT INTO `fonction` (`idFonc`, `libelle`) VALUES
@@ -2514,48 +2493,46 @@ INSERT INTO `fonction` (`idFonc`, `libelle`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `formation`
+-- Table structure for table `formation`
 --
 
-DROP TABLE IF EXISTS `formation`;
-CREATE TABLE IF NOT EXISTS `formation` (
+CREATE TABLE `formation` (
   `idForma` char(32) NOT NULL,
   `intitule` char(32) DEFAULT NULL,
   `descriptif` varchar(150) DEFAULT NULL,
   `duree` char(32) DEFAULT NULL,
   `dateOuvertureInscription` date DEFAULT NULL,
   `dateClotureInscription` date DEFAULT NULL,
-  `effectifMax` char(32) DEFAULT NULL,
-  PRIMARY KEY (`idForma`)
+  `effectifMax` char(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `formation`
+-- Dumping data for table `formation`
 --
 
 INSERT INTO `formation` (`idForma`, `intitule`, `descriptif`, `duree`, `dateOuvertureInscription`, `dateClotureInscription`, `effectifMax`) VALUES
 ('2', 'Convention sur le climat', 'qua adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices', '2', '2023-01-17', '2023-03-31', '20'),
 ('3', 'La danse pour découvrir le monde', 'quis commodo odio aenean sed adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum posuere urna nec tincidunt praesent', '4', '2023-01-17', '2023-03-22', '2'),
-('fo4', 'formation bonjour', 'placerat vestibulus lectus mauris ultrices eros in cursus turpis massa tincidunt dui ut ornare lectus sit amet est placerat in egestas erat', '10', '2023-03-14', '2023-03-17', '10'),
+('Fo16', 'Formation', 'une formation pour apprendre à faire des formations !', '5', '2023-04-23', '2023-05-27', '10'),
+('fo4', 'formation bonjour', 'placerat vestibulus lectus mauris ultrices eros in cursus turpis massa tincidunt dui ut ornare lectus sit amet est placerat in egestas erat', '10', '2023-04-06', '2023-04-06', '10'),
+('Fo5', 'Formation', 'descriptif', '5j', '2023-04-06', '2023-04-13', '10'),
 ('for6', 'formation au management du sport', 'loremipsumdolorsitamet', '6', '2023-03-16', '2023-04-12', '10');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `ligue`
+-- Table structure for table `ligue`
 --
 
-DROP TABLE IF EXISTS `ligue`;
-CREATE TABLE IF NOT EXISTS `ligue` (
+CREATE TABLE `ligue` (
   `idLigue` char(32) NOT NULL,
   `nomLigue` char(32) DEFAULT NULL,
   `site` char(32) DEFAULT NULL,
-  `descriptif` char(32) DEFAULT NULL,
-  PRIMARY KEY (`idLigue`)
+  `descriptif` char(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `ligue`
+-- Dumping data for table `ligue`
 --
 
 INSERT INTO `ligue` (`idLigue`, `nomLigue`, `site`, `descriptif`) VALUES
@@ -2564,11 +2541,10 @@ INSERT INTO `ligue` (`idLigue`, `nomLigue`, `site`, `descriptif`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `utilisateur`
+-- Table structure for table `utilisateur`
 --
 
-DROP TABLE IF EXISTS `utilisateur`;
-CREATE TABLE IF NOT EXISTS `utilisateur` (
+CREATE TABLE `utilisateur` (
   `idUser` char(32) NOT NULL,
   `idLigue` char(32) DEFAULT NULL,
   `idFonc` char(32) DEFAULT NULL,
@@ -2578,15 +2554,11 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `login` char(32) DEFAULT NULL,
   `mdp` char(32) DEFAULT NULL,
   `statut` char(32) DEFAULT NULL,
-  `typeUser` char(32) DEFAULT NULL,
-  PRIMARY KEY (`idUser`),
-  KEY `I_FK_UTILISATEUR_LIGUE` (`idLigue`),
-  KEY `I_FK_UTILISATEUR_FONCTION` (`idFonc`),
-  KEY `I_FK_UTILISATEUR_CLUB` (`idClub`)
+  `typeUser` char(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `utilisateur`
+-- Dumping data for table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`idUser`, `idLigue`, `idFonc`, `idClub`, `nom`, `prenom`, `login`, `mdp`, `statut`, `typeUser`) VALUES
@@ -2596,43 +2568,127 @@ INSERT INTO `utilisateur` (`idUser`, `idLigue`, `idFonc`, `idClub`, `nom`, `pren
 ('4', '1', NULL, '1', 'Boffin', 'Malva', 'mboffin', 'mboffin', 'Bénévole', NULL);
 
 --
--- Contraintes pour les tables déchargées
+-- Indexes for dumped tables
 --
 
 --
--- Contraintes pour la table `bulletin`
+-- Indexes for table `bulletin`
+--
+ALTER TABLE `bulletin`
+  ADD PRIMARY KEY (`idBulletin`),
+  ADD KEY `I_FK_BULLETIN_CONTRAT` (`idContrat`);
+
+--
+-- Indexes for table `club`
+--
+ALTER TABLE `club`
+  ADD PRIMARY KEY (`idClub`),
+  ADD KEY `I_FK_CLUB_LIGUE` (`idLigue`),
+  ADD KEY `I_FK_CLUB_COMMUNE` (`idCommune`);
+
+--
+-- Indexes for table `commune`
+--
+ALTER TABLE `commune`
+  ADD PRIMARY KEY (`idCommune`),
+  ADD KEY `codeDepartement` (`codeDepartement`);
+
+--
+-- Indexes for table `contrat`
+--
+ALTER TABLE `contrat`
+  ADD PRIMARY KEY (`idContrat`),
+  ADD KEY `I_FK_CONTRAT_UTILISATEUR` (`idUser`);
+
+--
+-- Indexes for table `demandeinscription`
+--
+ALTER TABLE `demandeinscription`
+  ADD PRIMARY KEY (`idUser`,`idForma`),
+  ADD KEY `I_FK_DEMANDEINSCRIPTION_UTILISATEUR` (`idUser`),
+  ADD KEY `I_FK_DEMANDEINSCRIPTION_FORMATION` (`idForma`);
+
+--
+-- Indexes for table `departement`
+--
+ALTER TABLE `departement`
+  ADD PRIMARY KEY (`codeDepartement`);
+
+--
+-- Indexes for table `fonction`
+--
+ALTER TABLE `fonction`
+  ADD PRIMARY KEY (`idFonc`);
+
+--
+-- Indexes for table `formation`
+--
+ALTER TABLE `formation`
+  ADD PRIMARY KEY (`idForma`);
+
+--
+-- Indexes for table `ligue`
+--
+ALTER TABLE `ligue`
+  ADD PRIMARY KEY (`idLigue`);
+
+--
+-- Indexes for table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  ADD PRIMARY KEY (`idUser`),
+  ADD KEY `I_FK_UTILISATEUR_LIGUE` (`idLigue`),
+  ADD KEY `I_FK_UTILISATEUR_FONCTION` (`idFonc`),
+  ADD KEY `I_FK_UTILISATEUR_CLUB` (`idClub`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `commune`
+--
+ALTER TABLE `commune`
+  MODIFY `idCommune` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2341;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `bulletin`
 --
 ALTER TABLE `bulletin`
   ADD CONSTRAINT `bulletin_ibfk_1` FOREIGN KEY (`idContrat`) REFERENCES `contrat` (`idContrat`);
 
 --
--- Contraintes pour la table `club`
+-- Constraints for table `club`
 --
 ALTER TABLE `club`
   ADD CONSTRAINT `club_ibfk_1` FOREIGN KEY (`idCommune`) REFERENCES `commune` (`idCommune`),
   ADD CONSTRAINT `club_ibfk_2` FOREIGN KEY (`idLigue`) REFERENCES `ligue` (`idLigue`);
 
 --
--- Contraintes pour la table `commune`
+-- Constraints for table `commune`
 --
 ALTER TABLE `commune`
   ADD CONSTRAINT `communeDepartement` FOREIGN KEY (`codeDepartement`) REFERENCES `departement` (`codeDepartement`);
 
 --
--- Contraintes pour la table `contrat`
+-- Constraints for table `contrat`
 --
 ALTER TABLE `contrat`
   ADD CONSTRAINT `contrat_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `utilisateur` (`idUser`);
 
 --
--- Contraintes pour la table `demandeinscription`
+-- Constraints for table `demandeinscription`
 --
 ALTER TABLE `demandeinscription`
   ADD CONSTRAINT `demandeinscription_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `utilisateur` (`idUser`),
   ADD CONSTRAINT `demandeinscription_ibfk_2` FOREIGN KEY (`idForma`) REFERENCES `formation` (`idForma`);
 
 --
--- Contraintes pour la table `utilisateur`
+-- Constraints for table `utilisateur`
 --
 ALTER TABLE `utilisateur`
   ADD CONSTRAINT `utilisateur_ibfk_1` FOREIGN KEY (`idLigue`) REFERENCES `ligue` (`idLigue`),

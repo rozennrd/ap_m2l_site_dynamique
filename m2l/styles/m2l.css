@@ -341,15 +341,6 @@ a.anchor {
 /*  Styles pour les tableaux dans le main   */
 /********************************************/
 
-table {
-	width:100%;
-	margin:3rem;
-	font-size:1rem; 
-	height: auto;
-	padding:3em;
-	border-collapse:collapse;
-}
-
 .message {
 	text-align:center; 
 	font-size:1.5rem; 
@@ -358,4 +349,70 @@ table {
 
 .flex {
 	display:flex; 
+}
+
+table {
+	width:100%;
+	margin:3rem;
+	font-size:1rem; 
+	height: auto;
+	padding:3em;
+	border-collapse:collapse;
+	border-collapse: collapse;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+th,
+td {
+	padding: 15px;
+	background-color: rgba(255,255,255,0.2);
+	
+}
+
+th {
+	text-align: left;
+}
+
+th {
+	background-color: #55608f;
+}
+
+
+tbody tr:hover {
+	
+		background-color: rgba(255,255,255,0.3);
+	
+}
+
+
+/* CSS */
+main input[type="submit"], .btn-retour {
+  background-color: rgba(51, 51, 51, 0.05);
+  border-radius: 8px;
+  border-width: 0;
+  color: #333333;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0.5em 0.5em;
+  text-align: center;
+  transition: all 200ms;
+  vertical-align: baseline;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin: 0.5em; 
+  text-decoration: none;
+}
+main input[type="submit"]:hover, .btn-retour:hover {
+	background-color: #d1cfcf;
+	list-style: 1px solid black;
+	
 }
